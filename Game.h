@@ -11,22 +11,23 @@ const int SCREEN_HEIGHT = 600;
 const int PLATFORM_WIDTH = 40;
 const int PLATFORM_HEIGHT = 270;
 const int STICK_WIDTH = 4;
+const int PLATFORM_POS = 330;
+const int PLAT_DIS_MAX = 100;
+const int PLAT_DIS_MIN = 200;
+const int WIN_PLATFORMS = 4;
 
-enum GameState {
-    MAIN_MENU,
-    LEVEL_MENU,
-    PLAYING,
-    EXIT
+enum gameState {
+	MAIN_MENU,
+	LEVEL_MENU,
+	PLAYING,
+	EXIT
 };
 
 void createPlatforms();
-void Levels(int level);
-void saveLevel();
-void openLevel();
+void Levels();
 void MainMenu();
 void LevelMenu();
-void WinPopup();
-void resetGame();
+void saveLevels();
+void openLevels();
 void update();
-
-#endif
+void resetGame();
