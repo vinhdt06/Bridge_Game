@@ -6,4 +6,4 @@
   Có 20 chặng cho mỗi số lượng nền tảng khác nhau và tăng dần (theo cấp số cộng), gồm 3 loại nền tảng: Nền tảng bình thường, nền tảng biến mất và nền tảng di chuyển. 
   Vậy nên người chơi hãy linh hoạt trong việc xử lí trong lúc di chuyển đảm bảo không bị rơi để giúp Hero cứu được Crush khỏi người xấu.
 
-  Game lấy ý tưởng từ game https://youtu.be/Op2xQs5VFmo?si=TQx7v1nbStfXMApl
+  Game lấy ý tưởng từ game Monkey Stick: https://youtu.be/Op2xQs5VFmo?si=TQx7v1nbStfXMApl
