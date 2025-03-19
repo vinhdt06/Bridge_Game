@@ -7,6 +7,6 @@
 
   Game lấy ý tưởng từ game Monkey Stick: https://youtu.be/Op2xQs5VFmo?si=TQx7v1nbStfXMApl
 ## THÀNH PHẦN GAME
-  Game gồm có nhân vật Hero trong bối cảnh rừng núi, sông suối hiểm trở. Cùng với đó là 3 loại nền tảng: Nền tảng bình thường, nền tảng biến mất và nền tảng di chuyển.
+  Game gồm có nhân vật Hero với cây gậy thần kì của mình trong bối cảnh rừng núi, sông suối hiểm trở. Cùng với đó là 3 loại nền tảng: Nền tảng bình thường, nền tảng biến mất và nền tảng di chuyển.
   Có 20 level tượng chưng cho 20 chặng cần vượt qua của nhân vật; ở mỗi level khác nhau, độ khó và số nền tảng sẽ tăng lên (ở đây tăng theo cấp số cộng).
 ## HƯỠNG DẪN CHƠI GAME
