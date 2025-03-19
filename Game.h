@@ -26,7 +26,7 @@ extern SDL_Texture* levelMenuBackground;
 extern SDL_Texture* gameBackground;
 extern std::vector<Platform> platforms;
 extern SDL_Rect hero;
-extern SDL_Rect_stick;
+extern SDL_Rect stick;
 
 extern bool stickLength;
 extern bool stickTurn;
@@ -49,10 +49,11 @@ enum gameState {
 };
 
 void createPlatforms();
-void Levels();
+void Levels(int level);
 void MainMenu();
 void LevelMenu();
 void saveLevels();
 void openLevels();
-void update();
+void problemGame();
+void faceGame();
 void resetGame();

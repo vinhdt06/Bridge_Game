@@ -21,6 +21,9 @@ int newLevel = 1;
 int stickTime = 0;
 int heroPos = 0;
 
+GameState gameState = MAIN_MENU;
+int selectLevel = 0;
+
 void createPlatforms() {
 	platforms.clear();
 	int randomPlatform = PLATFORM_WIDTH + rand() % 10;
@@ -51,10 +54,47 @@ void Levels(int level) {
 }
 
 void MainMenu() {
+	SDL_RenderCopy(renderer, homeBackground, nullptr, nullptr);
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_Rect titleGame = { SCREEN_WIDTH / 2 - 150, 100, 300, 50 };
+	SDL_RenderFillRect(renderer, &titleGame);
+
+	SDL_Rect playButton = { SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 10, 100, 40 };
+	if (selectLevel == 0) {
+		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+	}
+	SDL_RenderFillRect(renderer, &playButton);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderDrawRect(renderer, &playButton);
+	SDL_Rect exitButton = { SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 70, 100, 40 };
+	if (selectLevel == 1) {
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+	}
+	SDL_RenderFillRect(renderer, &exitButton);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderDrawRect(renderer, &exitButton);
+
 
 }
 
 void LevelMenu() {
+	SDL_RenderCopy(renderer, levelMenuBackground, nullptr, nullptr);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_Rect titleGame = { SCREEN_WIDTH / 2 - 100, 50, 200, 50 };
+	SDL_RenderFillRect(renderer, &titleGame);
+
+	SDL_Rect backButton = { 10, 10, 100, 40 };
+	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+	SDL_RenderFillRect(renderer, &backButton);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderDrawRect(renderer, &backButton);
 
 }
 
@@ -66,9 +106,33 @@ void openLevels() {
 
 }
 
-void update() {
+void problemGame() {
 
 } 
+
+void faceGame() {
+	if(gameState == MAIN_MENU) {
+		SDL_RenderCopy(renderer, homeBackground, nullptr, nullptr);
+		MainMenu();
+	}
+	else if (gameState == LEVEL_MENU) {
+		SDL_RenderCopy(renderer, levelMenuBackground, nullptr, nullptr);
+		LevelMenu();
+	}
+	else if (gameState == PLAYING) {
+		SDL_RenderCopy(renderer, gameBackground, nullptr, nullptr);
+
+		SDL_RenderCopy(renderer, heroCharacter, nullptr, &hero);
+		SDL_Rect backButton = { 10, 10, 100, 40 };
+		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+		SDL_RenderFillRect(renderer, &backButton);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderDrawRect(renderer, &backButton);
+	}
+
+
+	SDL_RenderPresent(renderer);
+}
 
 void resetGame() {
 	Levels(newLevel);
