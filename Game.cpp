@@ -14,15 +14,25 @@ std::vector<Platform> platforms;
 SDL_Rect hero = { 100, SCREEN_HEIGHT - 100, 35, 35 };
 SDL_Rect stick = { 0, 0, STICK_WIDTH, 0 };
 
+bool stickLength = false;
+bool stickTurn = false;
+bool stickDown = false;
+bool heroWalk = false;
+bool heroFall = false;
+bool heroAfterWalk = false;
+bool completeLevel[21] = { false };
+
 double stickAngle = 0;
 int platformsPassed = 0;
 int platformsWin = WIN_PLATFORMS;
 int newLevel = 1;
 int stickTime = 0;
+int stickTimeOk = TIME_STICK;
 int heroPos = 0;
+int selectLevel = 0;
 
 GameState gameState = MAIN_MENU;
-int selectLevel = 0;
+
 
 void createPlatforms() {
 	platforms.clear();
@@ -50,6 +60,7 @@ void Levels(int level) {
 	heroFall = false;
 	stickDown = false;
 	heroPos = hero.x;
+	stickTime = 0;
 	platformsPassed = 0;
 }
 
@@ -99,15 +110,59 @@ void LevelMenu() {
 }
 
 void saveLevels() {
-
+	std::ofstream file("level_completion.dat", std::ios::binary);
+	if (file.is_open()) {
+		file.write(reinterpret_cast<char*>(completeLevel), sizeof(completeLevel);
+		file.close()
+	}
 }
 
 void openLevels() {
+	std::ifstream file("level_complation.dat", std::ios::binary);
+	if (file.is_open()) {
+		file.read(reinterpret_cast<char*>(completeLevel), sizeof(completeLevel));
+		file.close();
+	}
+}
 
+int indexPlatforms() {
+	for(int i = 0; i < (int)platforms.size(); i++) {
+		if (hero.x + hero.w > platforms[i].x && hero.x < platforms[i].x + platforms[i].w && hero.y + hero.h == platforms[i].y) return i;
+	}
+	return -1;
 }
 
 void problemGame() {
+	if (gameState == PLAYING) {
+		int getIndexPlatforms = indexPlatforms();
+		if (stickLength && getIndexPlatforms != -1) {
+			stick.h += 5;
+			stick.y = platforms[getIndexPlatforms].y - stick.h;
+			stick.x = platforms[getIndexPlatforms].x + platforms[getIndexPlatforms].w - STICK_WIDTH;
+		}
+		else if (stickTurn && getIndexPlatforms != -1) {
+			stickAngle += 5;
+			if (stickAngle >= 90) {
+				stickAngle = 90;
+				stickTurn = false;
+				stickDown = true;
+				stick.w = stick.h;
+				stick.h = STICK_WIDTH;
+				stick.y = platforms[getIndexPlatforms].y;
+				stick.x = platforms[getIndexPlatforms].x + platforms[getIndexPlatforms].w - STICK_WIDTH;
+				stickTime = stickTimeOk;
+				int nextPlatforms = getIndexPlatforms + 1;
+				if (nextPlatforms < platforms.size()) {
 
+				}
+				else {
+					heroAfterWalk = true;
+					heroWalk = true;
+					heroPos = stick.x + stick.w;
+				}
+			}
+		}
+	}
 } 
 
 void faceGame() {
@@ -121,6 +176,16 @@ void faceGame() {
 	}
 	else if (gameState == PLAYING) {
 		SDL_RenderCopy(renderer, gameBackground, nullptr, nullptr);
+		if (stickLength) {
+			SDL_SetRenderDrawColor(renderer, 80, 40, 20, 255);
+			SDL_Rect stickForm1 = { stick.x, stick.y, stick.w, stick.h };
+			SDL_RenderFillRect(renderer, &stickForm1);
+		}
+		else if (stickTurn || stickDown) {
+			SDL_SetRenderDrawColor(renderer, 80, 40, 20, 255);
+			SDL_Rect stickForm2 = { stick.x, stick.y, stick.w, stick.h };
+			SDL_RenderFillRect(renderer, &stickForm2);
+		}
 
 		SDL_RenderCopy(renderer, heroCharacter, nullptr, &hero);
 		SDL_Rect backButton = { 10, 10, 100, 40 };

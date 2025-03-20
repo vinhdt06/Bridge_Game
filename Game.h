@@ -33,13 +33,18 @@ extern bool stickTurn;
 extern bool stickDown;
 extern bool heroWalk;
 extern bool heroFall;
+extern bool heroAfterWalk;
+extern bool completeLevel[21];
 
 extern double stickAngle;
 extern int platformsPassed;
 extern int platformsWin;
 extern int newLevel;
 extern int stickTime;
+extern int stickTimeOk;
 extern int heroPos;
+extern int selectLevel;
+
 
 enum gameState {
 	MAIN_MENU,
@@ -47,6 +52,7 @@ enum gameState {
 	PLAYING,
 	EXIT
 };
+extern gameState gameState;
 
 void createPlatforms();
 void Levels(int level);
@@ -54,6 +60,7 @@ void MainMenu();
 void LevelMenu();
 void saveLevels();
 void openLevels();
+int indexPlatforms();
 void problemGame();
 void faceGame();
 void resetGame();
