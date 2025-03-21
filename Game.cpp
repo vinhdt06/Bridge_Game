@@ -45,6 +45,8 @@ void createPlatforms() {
 		platforms.push_back({ newPos, PLATFORM_POS, randomPlatform, PLATFORM_HEIGHT });
 		platforms.back().firstPos = newPos;
 	}
+	stick = { platforms[0].x + platforms[0].w - STICK_WIDTH, platforms[0].y, STICK_WIDTH, 0 };
+
 
 }
 
@@ -101,12 +103,73 @@ void LevelMenu() {
 	SDL_Rect titleGame = { SCREEN_WIDTH / 2 - 100, 50, 200, 50 };
 	SDL_RenderFillRect(renderer, &titleGame);
 
+	int levelWidthAll = 5 * LEVEL_WIDTH_BUTTON + 4 * LEVEL_DIS_BUTTON;
+	int levelHeightAll = 4 * LEVEL_WIDTH_BUTTON + 3 * LEVEL_DIS_BUTTON;
+	int startPosX = (SCREEN_WIDTH - levelWidthAll) / 2;
+	int startPosY = (SCREEN_HEIGHT - levelHeightAll) / 2 + 50;
+
+	for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 5; i++) {
+			int indexLevel = 5 * i + j + 1;
+			SDL_Rect levelSelect = {
+				startPosX + j * (LEVEL_WIDTH_BUTTON + LEVEL_DIS_BUTTON),
+				startPosY + i * (LEVEL_HEIGHT_BUTTON + LEVEL_DIS_BUTTON),
+				LEVEL_WIDTH_BUTTON,
+				LEVEL_HEIGHT_BUTTON
+			};
+			if (completeLevel[indexLevel]) {
+				SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+			}
+			else {
+				SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
+			}
+			SDL_RenderFillRect(renderer, &levelSelect);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+			SDL_RenderDrawRect(renderer, &levelSelect);
+			if (indexLevel == selectLevel) {
+				SDL_SetRenderDrawColor(render, 0, 255, 255, 255);
+				SDL_RenderDrawRect(renderer, &levelSelect);
+			}
+		}
+	}
 	SDL_Rect backButton = { 10, 10, 100, 40 };
 	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
 	SDL_RenderFillRect(renderer, &backButton);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderDrawRect(renderer, &backButton);
 
+}
+
+void ifWinGame() {
+	SDL_SetRenderDrawColor(render, 0, 0, 0, 150);
+	SDL_Rect cover = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
+	SDL_RenderFillRect(renderer, &cover);
+
+	SDL_SetRenderDrawColor(render, 255, 255, 255, 255);
+	SDL_Rect appear = { SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 2 - 100, 300, 250 };
+	SDL_RenderFillRect(renderer, &appear);
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_Rect textWin = { SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 100, 300, 250 };
+	SDL_RenderFillRect(renderer, &textWin);
+
+	SDL_Rect replayButton = { SCREEN_WIDTH / 2 - 140, SCREEN_HEIGHT / 2, 100, 40 };
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+	SDL_RenderFillRect(renderer, &replayButton);
+
+	SDL_Rect continueButton = { SCREEN_WIDTH / 2 + 40, SCREEN_HEIGHT / 2, 100, 40 };
+	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+	SDL_RenderFillRect(render, &continueButton);
+
+	SDL_Rect backButton = { SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 60, 100, 40 };
+	SDL_SetRenderDrawColor(renderer,255, 255, 0, 255);
+	SDL_RenderFillRect(renderer, &backButton);
+
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderDrawColor(renderer, 0, 0, 0, 255);
+	SDL_RenderDrawRect(renderer, &replayButton);
+	SDL_RenderDrawRect(renderer, &continueButton);
+	SDL_RenderDrawRect(renderer, &backButton);
 }
 
 void saveLevels() {
@@ -159,6 +222,22 @@ void problemGame() {
 					heroAfterWalk = true;
 					heroWalk = true;
 					heroPos = stick.x + stick.w;
+				}
+			}
+		}
+		else if (heroWalk) {
+			if (hero.x < heroPos) {
+				hero.x += HERO_SPEED;
+			}
+			if (abs(hero.x - heroPos) <= HERO_SPEED) {
+				hero.x = heroPos;
+				heroWalk = false;
+				if (heroAfterWalk) heroFall = true;
+				else {
+					platformsPassed++;
+					if (platformsPassed >= platformsWin - 1) {
+
+					}
 				}
 			}
 		}

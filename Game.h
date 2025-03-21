@@ -17,6 +17,9 @@ const int PLAT_DIS_MIN = 200;
 const int WIN_PLATFORMS = 4;
 const int HERO_SPEED = 6;
 const int TIME_STICK = 100;
+const int LEVEL_WIDTH_BUTTON = 80;
+const int LEVEL_HEIGHT_BUTTON = 80;
+const int LEVEL_DIS_BUTTON = 20;
 
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
@@ -45,7 +48,6 @@ extern int stickTimeOk;
 extern int heroPos;
 extern int selectLevel;
 
-
 enum gameState {
 	MAIN_MENU,
 	LEVEL_MENU,
@@ -58,6 +60,7 @@ void createPlatforms();
 void Levels(int level);
 void MainMenu();
 void LevelMenu();
+void ifWinGame();
 void saveLevels();
 void openLevels();
 int indexPlatforms();
