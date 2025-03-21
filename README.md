@@ -16,7 +16,7 @@
   - Sau khi vào game và kích vào _Play_, sẽ dẫn chúng ta đến phần chọn level chơi:
   [Picture](#)
   - Ở phần lựa chọn level, người chơi được lựa chọn level bất kì, sau khi thắng 1 level sẽ được lưu lại kết quả: [Picture](#)
-  - Trong 1 level chơi, nhiệm vụ của người chơi là kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua:
+  - Trong 1 level chơi, nhiệm vụ của người chơi là kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua: [Picture](#)
   - Nền tảng sẽ gồm 3 loại:  
     1. _Nền tảng bình thường_: nền tảng dễ chơi nhất, người chơi chỉ việc kéo đủ chiều dài để đi qua mà không gặp bất kì khó khăn nào: [Picture](#)
     2. _Nền tảng biến mất_: nền tảng này sẽ giới hạn thời gian đứng của nhân vật, nếu không di chuyển nhanh nhân vật sẽ bị rơi xuống khi nền tảng biến mất: [Picture](#)
