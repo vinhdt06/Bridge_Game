@@ -4,6 +4,10 @@
 struct Platform {
 	int x, y, w, h;
 	int firstPos = 0;
+	int timeDisappear = 0;
+	bool platformsDisappear = false;
+	int velocity = 0;
+	int platformsMove = 0;
 };
 
 #endif

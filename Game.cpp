@@ -21,6 +21,9 @@ bool heroWalk = false;
 bool heroFall = false;
 bool heroAfterWalk = false;
 bool completeLevel[21] = { false };
+bool scrollScreen = false;
+bool camePlatforms = false;
+bool wonGame = false;
 
 double stickAngle = 0;
 int platformsPassed = 0;
@@ -30,6 +33,7 @@ int stickTime = 0;
 int stickTimeOk = TIME_STICK;
 int heroPos = 0;
 int selectLevel = 0;
+int scrollScreen = SCROLL_SPEED;
 
 GameState gameState = MAIN_MENU;
 
@@ -46,7 +50,29 @@ void createPlatforms() {
 		platforms.back().firstPos = newPos;
 	}
 	stick = { platforms[0].x + platforms[0].w - STICK_WIDTH, platforms[0].y, STICK_WIDTH, 0 };
-
+	if (platforms.size() > 2) {
+		int indexDisappear = rand() % (platforms.size() - 1) + 1;
+		platforms[indexDisappear].platformsDisappear = true;
+		platforms[indexDisappear].timeDisappear = 120;
+		int indexMove;
+		do {
+			indexMove = rand() % (platforms.size() - 1) + 1;
+		} while (indexMove == indexDisappear);
+		platforms[indexMove].velocity = (rand() % 5 - 2) * 0.5f;
+		platforms[indexMove].platformsMove = rand() % 50 + 20;
+		for (size_t i = 1; i < platforms.size(); i++) {
+			if (i != indexDisappear && i != indexMove) {
+				if (rand() % 100 < 30) {
+					platforms[i].platformsDisappear = true;
+					platforms[i].timeDisappear = 120;
+				}
+				if (rand() % 100 < 40) {
+					platforms[i].velocity = (rand() % 5 - 2) * 0.5f;
+					platforms[i].platformsMove = rand() % 50 + 20;
+				}
+			}
+		}
+	}
 
 }
 
@@ -61,6 +87,9 @@ void Levels(int level) {
 	heroWalk = false;
 	heroFall = false;
 	stickDown = false;
+	scrollScreen = false;
+	camePlatforms = false;
+	wonGame = false;
 	heroPos = hero.x;
 	stickTime = 0;
 	platformsPassed = 0;
@@ -235,11 +264,37 @@ void problemGame() {
 				if (heroAfterWalk) heroFall = true;
 				else {
 					platformsPassed++;
+					camePlatforms = true;
 					if (platformsPassed >= platformsWin - 1) {
-
+						wonGame = true;
+						gameState = WON;
+						completeLevel[newLevel] = true;
+						saveLevels();
 					}
 				}
 			}
+		}
+		else if (camePlatforms) {
+			stickDown = false;
+			stick.h = 0;
+			stick.w = STICK_WIDTH;
+			stickAngle = 0;
+			getIndexPlatforms = indexPlatforms();
+			if (getIndexPlatforms != -1) {
+				if (platforms[getIndexPlatforms].velocity != 0) {
+					platforms[getIndexPlatforms].velocity = 0;
+					hero.x = platforms[getIndexPlatforms].x + (platforms[getIndexPlatforms].w - hero.w) / 2;
+				}
+				stick.x = platforms[getIndexPlatforms].x + platforms[getIndexPlatforms].w - STICK_WIDTH;
+				stick.y = platforms[getIndexPlatforms].y;
+			}
+			if (platforms.size() < platformsWin) {
+				scrollScreen = true;
+			}
+			camePlatforms = false;
+		}
+		else if () {
+
 		}
 	}
 } 
@@ -265,6 +320,23 @@ void faceGame() {
 			SDL_Rect stickForm2 = { stick.x, stick.y, stick.w, stick.h };
 			SDL_RenderFillRect(renderer, &stickForm2);
 		}
+		for (const auto plat : platforms) {
+			if (plat.w > 0 && plat.h > 0) {
+				if (plat.platformsDisappear && plat.timeDisappear <= 70) {
+					if (rand() % 2 == 0) {
+						SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+					}
+					else {
+						SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+					}
+				}
+				else {
+					SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+				}
+				SDL_Rect rect = { plat.x, plat.y, plat.w, plat.h };
+				SDL_RenderFillRect(renderer, &rect);
+			}
+		}
 
 		SDL_RenderCopy(renderer, heroCharacter, nullptr, &hero);
 		SDL_Rect backButton = { 10, 10, 100, 40 };
@@ -273,7 +345,28 @@ void faceGame() {
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderDrawRect(renderer, &backButton);
 	}
+	else if (gameState == WON) {
+		ifWinGame();
+	}
+	else if (gameState == LOST) {
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+		SDL_Rect lose = { SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 50, 200, 100 };
+		SDL_RenderFillRect(renderer, &lose);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderDrawRect(renderer, &lose);
 
+		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+		SDL_Rect rePlayButton = { SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 20, 100, 40 };
+		SDL_RenderFillRect(renderer, &rePlayButton);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderDrawRect(renderer, &rePlayButton);
+
+		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+		SDL_Rect homeButton = { SCREEN_WIDTH / 2 + 20, SCREEN_HEIGHT / 2 + 20, 100, 40 };
+		SDL_RenderFillRect(renderer, &homeButton);
+		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+		SDL_RenderDrawRect(renderer, &homeButton);
+	}
 
 	SDL_RenderPresent(renderer);
 }

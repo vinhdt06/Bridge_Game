@@ -20,6 +20,7 @@ const int TIME_STICK = 100;
 const int LEVEL_WIDTH_BUTTON = 80;
 const int LEVEL_HEIGHT_BUTTON = 80;
 const int LEVEL_DIS_BUTTON = 20;
+const int SCROLL_SPEED = 10;
 
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
@@ -38,6 +39,9 @@ extern bool heroWalk;
 extern bool heroFall;
 extern bool heroAfterWalk;
 extern bool completeLevel[21];
+extern bool scrollScreen;
+extern bool camePlatforms;
+extern bool wonGame;
 
 extern double stickAngle;
 extern int platformsPassed;
@@ -47,11 +51,14 @@ extern int stickTime;
 extern int stickTimeOk;
 extern int heroPos;
 extern int selectLevel;
+extern int scrollScreen;
 
 enum gameState {
 	MAIN_MENU,
 	LEVEL_MENU,
 	PLAYING,
+	WON,
+	LOST,
 	EXIT
 };
 extern gameState gameState;
