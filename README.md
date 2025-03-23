@@ -11,6 +11,9 @@
   - Tăng độ khó cho game bằng cách thêm 2 loại nền tảng mới: _Nền tảng biến mất_; _Nền tảng di chuyển_ hoặc kết hợp cả 2 xuất hiện ở từng level có xác xuất.
   - Cập nhật số lượng nền tảng tăng lên theo từng level.
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua.
+## CÁCH CÀI ĐẶT GAME
+  - Người chơi tải 4 thư viện SDL về và cài đặt SDL trên IDE đã có.
+  - Sau đó tải 7 file game về và chạy.
 ## HƯỠNG DẪN CHƠI GAME
   Người chơi được lựa chọn level bất kì để chơi. Sau khi vượt qua các nền tảng của từng level tức là sẽ vượt qua level đó. Nếu qua hết các level tức là đã thắng cuộc và Hero sẽ cứu được Crush. Cụ thể:
   - Sau khi vào game và kích vào _Play_, sẽ dẫn chúng ta đến phần chọn level chơi:
@@ -18,7 +21,14 @@
   - Ở phần lựa chọn level, người chơi được lựa chọn level bất kì, sau khi thắng 1 level sẽ được lưu lại kết quả: [Picture](#)
   - Trong 1 level chơi, nhiệm vụ của người chơi là kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua: [Picture](#)
   - Nền tảng sẽ gồm 3 loại:  
-    1. _Nền tảng bình thường_: nền tảng dễ chơi nhất, người chơi chỉ việc kéo đủ chiều dài để đi qua mà không gặp bất kì khó khăn nào: [Picture](#)
+    1. _Nền tảng bình thường_: nền tảng dễ chơi nhất, người chơi chỉ việc kéo đủ chiều dài gậy để đi qua mà không gặp bất kì khó khăn nào: [Picture](#)
     2. _Nền tảng biến mất_: nền tảng này sẽ giới hạn thời gian đứng của nhân vật, nếu không di chuyển nhanh nhân vật sẽ bị rơi xuống khi nền tảng biến mất: [Picture](#)
     3. _Nền tảng di chuyển_: nền tảng này dịch chuyển quanh vị trí nó đứng, là nền tảng khó nhất, đòi hỏi người chơi phải linh hoạt trong việc kéo gậy di chuyển: [Picture](#)  
   - Ngoài ra, có thể có sự kết hợp ngẫu nhiên giữa nền tảng biến mất và nền tảng di chuyển, tức là vừa giới hạn thời gian đứng vừa dịch chuyển.
+## NHỮNG NGUỒN SỬ DỤNG ĐỂ TẠO GAME
+  - Background: [link](#)
+  - Character: [link](#)
+  - ButtonGame: [link](#)
+  - Music: [link](#)
+  - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek
+
