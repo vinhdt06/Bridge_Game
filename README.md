@@ -30,5 +30,6 @@
   - Character: [link](#)
   - ButtonGame: [link](#)
   - Music: [link](#)
-  - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek
+  - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek.
+  - Lazyfoo hỗ trợ dùng SDL.
 
