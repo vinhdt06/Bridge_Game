@@ -122,8 +122,6 @@ void MainMenu() {
 	SDL_RenderFillRect(renderer, &exitButton);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderDrawRect(renderer, &exitButton);
-
-
 }
 
 void LevelMenu() {
@@ -195,7 +193,6 @@ void ifWinGame() {
 	SDL_RenderFillRect(renderer, &backButton);
 
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderDrawColor(renderer, 0, 0, 0, 255);
 	SDL_RenderDrawRect(renderer, &replayButton);
 	SDL_RenderDrawRect(renderer, &continueButton);
 	SDL_RenderDrawRect(renderer, &backButton);
@@ -369,6 +366,45 @@ void faceGame() {
 	}
 
 	SDL_RenderPresent(renderer);
+}
+
+void setEvent(SDL_Event& event, bool& running) {
+	while (SDL_PollEvent(&event)) {
+		if (event.type == SDL_QUIT) {
+			running = false;
+		}
+		if (gameState == MAIN_MENU) {
+			if (event.type == SDL_MOUSEBUTTONDOWN) {
+				int mouseX = event.button.x;
+				int mouseY = event.button.y;
+				SDL_Rect playButton = { SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 10, 100, 40 };
+				if (mouseX >= playButton.x && mouseX <= playButton.x + playButton.w && mouseY >= playButton.y && mouseY <= playButton.y + playButton.h) {
+					gameState = LEVEL_MENU;
+				}
+				SDL_Rect exitButton = { SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 70, 100, 40 };
+				if (mouseX >= exitButton.x && mouseX <= exitButton.x + exitButton.w && mouseY >= exitButton.y && mouseY <= exitButton.y + exitButton.h) {
+					gameState = EXIT;
+				}
+			}
+			else if (event.type == SDL_KEYDOWN) {
+				switch (event.key.keysym.sym) {
+					case SDLK_UP;
+						selectLevel = (selectLevel > 0) ? selectLevel - 1 : 1;
+						break;
+					case SDLK_DOWN:
+						selectLevel = (selectLevel < 1) ? selectLevel + 1 : 0;
+						break;
+					case SDLK_RETURN:
+						if (selectLevel == 0) gameState = LEVEL_MENU;
+						else if (selectLevel == 1) gameState = EXIT;
+						break;
+				}
+			}
+		}
+		else if () {
+
+		}
+	}
 }
 
 void resetGame() {

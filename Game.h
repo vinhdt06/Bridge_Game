@@ -73,4 +73,5 @@ void openLevels();
 int indexPlatforms();
 void problemGame();
 void faceGame();
+void setEvent(SDL_Event& event, bool& running);
 void resetGame();
