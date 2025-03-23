@@ -13,7 +13,7 @@
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua.
 ## CÁCH CÀI ĐẶT GAME
   - Người chơi tải 4 thư viện SDL về và cài đặt SDL trên IDE đã có.
-  - Sau đó tải 7 file game về và chạy.
+
 ## HƯỠNG DẪN CHƠI GAME
   Người chơi được lựa chọn level bất kì để chơi. Sau khi vượt qua các nền tảng của từng level tức là sẽ vượt qua level đó. Nếu qua hết các level tức là đã thắng cuộc và Hero sẽ cứu được Crush. Cụ thể:
   - Sau khi vào game và kích vào _Play_, sẽ dẫn chúng ta đến phần chọn level chơi:
