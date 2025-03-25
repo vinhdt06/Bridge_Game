@@ -401,6 +401,86 @@ void setEvent(SDL_Event& event, bool& running) {
 				}
 			}
 		}
+		else if (gameState == LEVEL_MENU) {
+			if (event.type == MOUSEBUTTONDOWN) {
+				int mouseX = event.button.x;
+				int mouseY = event.button.y;
+				const int LEVEL_WIDTH_BUT = 80;
+				const int LEVEL_HEIGHT_BUT = 80;
+				const int LEVEL_DIS_BUT = 20;
+				int levelWidth = 5 * LEVEL_WIDTH_BUT + 4 * LEVEL_DIS_BUT;
+				int levelHeight = 4 * LEVEL_WIDTH_BUT + 3 * LEVEL_DIS_BUT;
+				int startPosX = (SCREEN_WIDTH - levelWidth) / 2;
+				int startPosY = (SCREEN_HEIGHT - levelHeight) / 2 + 50;
+
+				for (int i = 0; i < 4; i++) {
+					for (int i = 0; i < 5; i++) {
+						int indexLevel = 5 * i + j + 1;
+						SDL_Rect levelBut = {
+							startPosX + j * (LEVEL_WIDTH_BUT + LEVEL_DIS_BUT),
+							startPosY + i * (LEVEL_HEIGHT_BUT + LEVEL_DIS_BUT),
+							LEVEL_WIDTH_BUT,
+							LEVEL_HEIGHT_BUT
+						};
+						if (mouseX >= levelBut.x && mouseX <= levelBut.x + levelBut.w && mouseY >= levelBut.y && mouseY <= levelBut.y + levelBut.h) {
+							selectLevel = indexLevel;
+							newLevel = selectLevel;
+							resetGame();
+							gameState == PLAYING;
+							break;
+						}
+					}
+				}
+				SDL_Rect backButton = { 10, 10, 100, 40 };
+				if (mouseX >= backButton.x && mouseX <= backButton.x + backButton.w && mouseY >= backButton.y && mouseY <= backButton.y + backButton.h) {
+					gameState == MAIN_MENU;
+				}
+			}
+			else if (event.type == SDL_KEYDOWN) {
+				switch (event.key.keysym.sym) {
+				case SDLK_UP:
+					selectLevel = (selectLevel > 4) ? selectLevel - 4 : selectLevel;
+					break;
+				case SDLK_DOWN:
+					selectLevel = (selectLevel <= 20 - 4) ? selectLevel + 4 : selectLevel;
+					break;
+				case SDLK_LEFT:
+					selectLevel = (selectLevel > 1) ? selectLevel - 1 : selectLevel;
+					break;
+				case SDLK_RIGHT:
+					selectLevel = (selectLevel < 20) ? selectLevel + 1 : selectLevel;
+					break;
+				case SDLK_RETURN:
+					newLevel = selectLevel;
+					resetGame();
+					gameState = PLAYING;
+					break;
+				case SDLK_ESCAPE:
+					gameState = MAIN_MENU;
+					break;
+				}
+			}
+		}
+		else if (gameState == PLAYING) {
+			if (event.type == SDL_MOUSEBUTTONDOWN) {
+				int mouseX = event.button.x;
+				int mouseY = event.button.y;
+				SDL_Rect backButton = { 10, 10, 100, 40 };
+				if (mouseX >= backButton.x && mouseX <= backButton.x + backButton.w && mouseY >= backButton.y && mouseY <= backButton.y + backButton.h) {
+					gameState = LEVEL_MENU;
+				}
+				else if (!stickTurn && !heroWalk && !heroFall && !scrollScreen && platforms.size() >= 2) {
+					stickLength = true;
+				}
+			}
+			if (event.type == SDL_MOUSEBUTTONUP && stickLength) {
+				stickLength = false;
+				stickTurn = true;
+			}
+			if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE) {
+				gameState == LEVEL_MENU;
+			}
+		}
 		else if () {
 
 		}
