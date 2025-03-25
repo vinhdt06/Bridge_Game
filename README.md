@@ -25,6 +25,10 @@
     2. _Nền tảng biến mất_: nền tảng này sẽ giới hạn thời gian đứng của nhân vật, nếu không di chuyển nhanh nhân vật sẽ bị rơi xuống khi nền tảng biến mất: [Picture](#)
     3. _Nền tảng di chuyển_: nền tảng này dịch chuyển quanh vị trí nó đứng, là nền tảng khó nhất, đòi hỏi người chơi phải linh hoạt trong việc kéo gậy di chuyển: [Picture](#)  
   - Ngoài ra, có thể có sự kết hợp ngẫu nhiên giữa nền tảng biến mất và nền tảng di chuyển, tức là vừa giới hạn thời gian đứng vừa dịch chuyển.
+  - Khi chơi game:  
+    +) Người chơi có thể thoát khỏi màn chơi bằng nút _Exit_: [Picture](#)  
+    +) Nếu muốn chơi lại màn chơi, chọn nút _Replay_: [Picture](#)  
+    +) Sau khi qua level chơi hiện tại, người chơi có thể đến level tiếp theo bằng nút _Continue_: [Picture](#)  
 ## NHỮNG NGUỒN SỬ DỤNG ĐỂ TẠO GAME
   - Background: [link](#)
   - Character: [link](#)
