@@ -42,6 +42,7 @@ extern bool completeLevel[21];
 extern bool scrollScreen;
 extern bool camePlatforms;
 extern bool wonGame;
+extern bool showWin;
 
 extern double stickAngle;
 extern int platformsPassed;

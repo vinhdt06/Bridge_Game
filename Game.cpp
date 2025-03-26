@@ -24,6 +24,7 @@ bool completeLevel[21] = { false };
 bool scrollScreen = false;
 bool camePlatforms = false;
 bool wonGame = false;
+bool showWin = false;
 
 double stickAngle = 0;
 int platformsPassed = 0;
@@ -481,8 +482,46 @@ void setEvent(SDL_Event& event, bool& running) {
 				gameState == LEVEL_MENU;
 			}
 		}
-		else if () {
-
+		else if (gameState = WON) {
+			if (event.type == SDL_MOUSEBUTTONDOWN) {
+				int mouseX = event.button.x;
+				int mouseY = event.button.y;
+				SDL_Rect replayButton = { SCREEN_WIDTH / 2 - 140, SCREEN_HEIGHT / 2, 100, 40 };
+				if (mouseX >= replayButton.x && mouseX <= replayButton.x + replayButton.w && mouseY >= replayButton.y && mouseY <= replayButton.y + replayButton.h) {
+					resetGame();
+					gameState = PLAYING;
+					showWin = false;
+				}
+				SDL_Rect nextButton = { SCREEN_WIDTH / 2 + 40, SCREEN_HEIGHT / 2, 100, 40 };
+				if (mouseX >= nextButton.x && mouseX <= nextButton.x + nextButton.w && mouseY >= nextButton.y && mouseY <= nextButton.y + nextButton.h) {
+					newLevel++;
+					resetGame();
+					gameState = PLAYING;
+					showWin = false;
+				}
+				SDL_Rect backButton = { SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 60, 100, 40 };
+				if (mouseX >= backButton.x && mouseX <= backButton.x + backButton.w && mouseY >= backButton.y && mouseY <= backButton.y + backButton.h) {
+					gameState = LEVEL_MENU;
+				}
+			}
+		}
+		else if (gameState == LOST) {
+			if (event.type == SDL_MOUSEBUTTONDOWN) {
+				int mouseX = event.button.x;
+				int mouseY = event.button.y;
+				SDL_Rect replayButton = { SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 20, 100, 40 };
+				if (mouseX >= replayButton.x && mouseX <= replayButton.x + replayButton.w && mouseY >= replayButton.y && mouseY <= replayButton.y + replayButton.h) {
+					resetGame();
+					gameState = PLAYING;
+				}
+				SDL_Rect homeButton = { SCREEN_WIDTH / 2 + 20, SCREEN_HEIGHT / 2 + 20, 100, 40 };
+				if (mouseX >= homeButton.x && mouseX <= homeButton.x + homeButton.w && mouseY >= homeButton.y && mouseY <= homeButton.y + homeButton.h) {
+					gameState = LEVEL_MENU;
+				}
+			}
+		}
+		else if (gameState == EXIT) {
+			running = false;
 		}
 	}
 }
