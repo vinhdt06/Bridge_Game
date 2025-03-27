@@ -52,7 +52,7 @@ extern int stickTime;
 extern int stickTimeOk;
 extern int heroPos;
 extern int selectLevel;
-extern int scrollScreen;
+extern int scrollSpeed;
 
 enum gameState {
 	MAIN_MENU,

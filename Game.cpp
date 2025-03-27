@@ -34,7 +34,7 @@ int stickTime = 0;
 int stickTimeOk = TIME_STICK;
 int heroPos = 0;
 int selectLevel = 0;
-int scrollScreen = SCROLL_SPEED;
+int scrollSpeed = SCROLL_SPEED;
 
 GameState gameState = MAIN_MENU;
 
@@ -291,8 +291,65 @@ void problemGame() {
 			}
 			camePlatforms = false;
 		}
-		else if () {
-
+		else if (scrollScreen && platforms.size() < platformsWin) {
+			for (auto& plat : platforms) {
+				plat.x -= scrollSpeed;
+				plat.firstPos -= scrollSpeed;
+			}
+			hero.x -= scrollSpeed;
+			if (platforms[0].x + platforms[0].w < 0) {
+				platforms.erase(platforms.begin());
+				Platform newPlat;
+				newPlat.x = platforms.back().x + platforms.back().w + (rand() % (PLAT_DIS_MAX - PLAT_DIS_MIN) + PLAT_DIS_MIN);
+				newPlat.y = PLATFORM_POS;
+				newPlat.w = PLATFORM_WIDTH + rand() % 10;
+				newPlat.h = PLATFORM_HEIGHT;
+				newPlat.firstPos = newPlat.x;
+				newPlat.platformsDisappear = false;
+				newPlat.timeDisappear = 0;
+				newPlat.velocity = 0;
+				newPlat.platformsMove = 0;
+				bool checkDisappear = false;
+				bool checkMove = false;
+				for (const auto& plat : platforms) {
+					if (plat.platformsDisappear) checkDisappear = true;
+					if (plat.velocity != 0) checkMove = true;
+				}
+				if (!checkDisappear) {
+					newPlat.platformsDisappear = true;
+					newPlat.timeDisappear = 120;
+				}
+				else if (!checkMove) {
+					newPlat.velocity = (rand() % 5 - 2) * 0.5f;
+					newPlat.platformsMove = rand() % 50 + 20;
+				}
+				else {
+					if (rand() % 100 < 30) {
+						newPlat.platformsDisappear = true;
+						newPlat.timeDisappear = 120;
+					}
+					if (rand() % 100 < 40) {
+						newPlat.velocity = (rand() % 5 - 2) * 0.5f;
+						newPlat.platformsMove = rand() % 50 + 20;
+					}
+				}
+				platforms.push_back(newPlat);
+				scrollScreen = false;
+				if (platforms.size() >= 2) {
+					stick = { platforms[0].x + platforms[0].w - STICK_WIDTH, platforms[0].y, STICK_WIDTH, 0 };
+					stickAngle = 0;
+				}
+			}
+		}
+		else if (heroFall) {
+			hero.y += 5;
+			if (hero.y > SCREEN_HEIGHT) {
+				gameState = LOST;
+			}
+		}
+		if (stickDown && stickTime > 0) {
+			stickTime--;
+			if (stickTime == 0) stickDown = false;
 		}
 	}
 } 
