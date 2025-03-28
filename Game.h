@@ -21,6 +21,7 @@ const int LEVEL_WIDTH_BUTTON = 80;
 const int LEVEL_HEIGHT_BUTTON = 80;
 const int LEVEL_DIS_BUTTON = 20;
 const int SCROLL_SPEED = 10;
+const int SPEED_GO_FRAME = 10;
 
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
@@ -53,6 +54,8 @@ extern int stickTimeOk;
 extern int heroPos;
 extern int selectLevel;
 extern int scrollSpeed;
+extern int heroFrameGo;
+extern int frameGoTime;
 
 enum gameState {
 	MAIN_MENU,

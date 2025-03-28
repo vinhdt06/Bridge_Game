@@ -35,6 +35,8 @@ int stickTimeOk = TIME_STICK;
 int heroPos = 0;
 int selectLevel = 0;
 int scrollSpeed = SCROLL_SPEED;
+int heroFrameGo = 0;
+int frameGoTime = 0;
 
 GameState gameState = MAIN_MENU;
 
@@ -224,6 +226,17 @@ int indexPlatforms() {
 
 void problemGame() {
 	if (gameState == PLAYING) {
+		if (heroWalk) {
+			frameGoTime++;
+			if (frameGoTime >= SPEED_GO_FRAME) {
+				frameGoTime = 0;
+				heroFrameGo = (heroFrameGo + 1) % 3;
+			}
+		}
+		else {
+			heroFrameGo = 0;
+			frameGoTime = 0;
+		}
 		int getIndexPlatforms = indexPlatforms();
 		if (stickLength && getIndexPlatforms != -1) {
 			stick.h += 5;
@@ -243,7 +256,16 @@ void problemGame() {
 				stickTime = stickTimeOk;
 				int nextPlatforms = getIndexPlatforms + 1;
 				if (nextPlatforms < platforms.size()) {
-
+					if (stick.x + stick.w >= platforms[nextPlatforms].x && stick.x + stick.w <= platforms[nextPlatforms].x + platforms[nextPlatforms].w) {
+						heroWalk = true;
+						heroAfterWalk = false;
+						heroPos = platforms[nextPlatforms].x + (platforms[nextPlatforms].w - hero.w) / 2;
+					}
+					else {
+						heroAfterWalk = true;
+						heroWalk = true;
+						heroPos = stick.x + stick.w;
+					}
 				}
 				else {
 					heroAfterWalk = true;
@@ -351,8 +373,50 @@ void problemGame() {
 			stickTime--;
 			if (stickTime == 0) stickDown = false;
 		}
+		for (size_t i = 0; i < platforms.size(); i++) {
+			auto& plat = platforms[i];
+			if (plat.w > 0 && plat.h > 0 && plat.velocity != 0) {
+				plat.x += plat.velocity;
+				if (plat.x < plat.firstPos - plat.platformsMove) {
+					plat.x = plat.firstPos - plat.platformsMove;
+					plat.velocity = -plat.velocity;
+				}
+				else if (plat.x > plat.firstPos + plat.platformsMove) {
+					plat.x = plat.firstPos + plat.platformsMove;
+					plat.velocity = -plat.velocity;
+				}
+				if (!heroWalk && !stickTurn && !stickLength && !heroFall && hero.x + hero.w > plat.x && hero.x < plat.x + plat.w && hero.y + hero.h == plat.y) {
+					hero.x += plat.velocity;
+				}
+			}
+		}
+		for (auto& plat : platforms) {
+			if (plat.platformsDisappear && plat.timeDisappear > 0) {
+				if (hero.x + hero.w > plat.x && hero.x < plat.x + plat.w && hero.y + hero.h == plat.y) {
+					plat.timeDisappear--;
+					if (plat.timeDisappear == 0) {
+						plat.w = 0;
+						plat.h = 0;
+						if (!heroFall) {
+							heroFall = true;
+							stickLength = false;
+							stick.h = 0;
+							stickAngle = 0;
+						}
+					}
+				}
+			}
+		}
+		bool flagPlatforms = false;
+		for (const auto& plat : platforms) {
+			if (hero.x + hero.w > plat.x && hero.x < plat.x + plat.w && hero.y + hero.h == plat.y) {
+				lagPlatforms = true;
+				break;
+			}
+		}
+		if (!flagPlatforms && !heroWalk && !stickTurn && !stickLength && !heroFall) heroFall = true;
 	}
-} 
+}
 
 void faceGame() {
 	if(gameState == MAIN_MENU) {
