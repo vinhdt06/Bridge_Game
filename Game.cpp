@@ -35,8 +35,6 @@ int stickTimeOk = TIME_STICK;
 int heroPos = 0;
 int selectLevel = 0;
 int scrollSpeed = SCROLL_SPEED;
-int heroFrameGo = 0;
-int frameGoTime = 0;
 
 GameState gameState = MAIN_MENU;
 
@@ -226,17 +224,6 @@ int indexPlatforms() {
 
 void problemGame() {
 	if (gameState == PLAYING) {
-		if (heroWalk) {
-			frameGoTime++;
-			if (frameGoTime >= SPEED_GO_FRAME) {
-				frameGoTime = 0;
-				heroFrameGo = (heroFrameGo + 1) % 3;
-			}
-		}
-		else {
-			heroFrameGo = 0;
-			frameGoTime = 0;
-		}
 		int getIndexPlatforms = indexPlatforms();
 		if (stickLength && getIndexPlatforms != -1) {
 			stick.h += 5;
