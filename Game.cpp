@@ -74,7 +74,6 @@ void createPlatforms() {
 			}
 		}
 	}
-
 }
 
 void Levels(int level) {
@@ -87,6 +86,7 @@ void Levels(int level) {
 	stickTurn = false;
 	heroWalk = false;
 	heroFall = false;
+	heroAfterWalk = false;
 	stickDown = false;
 	scrollScreen = false;
 	camePlatforms = false;
@@ -473,7 +473,6 @@ void faceGame() {
 		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 		SDL_RenderDrawRect(renderer, &homeButton);
 	}
-
 	SDL_RenderPresent(renderer);
 }
 
