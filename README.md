@@ -12,7 +12,8 @@
   - Cập nhật số lượng nền tảng tăng lên theo từng level.
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua.
 ### III. CÁCH CÀI ĐẶT GAME
-  - Người chơi tải 4 thư viện SDL về và cài đặt SDL trên IDE đã có.
+  - Người chơi tải 4 thư viện SDL về và cài đặt SDL trên IDE đã có: [Picture](#)
+  - 
 
 ### IV. HƯỠNG DẪN CHƠI GAME
   Người chơi được lựa chọn level bất kì để chơi. Sau khi vượt qua các nền tảng của từng level tức là sẽ vượt qua level đó. Nếu qua hết các level tức là đã thắng cuộc và Hero sẽ cứu được Crush. Cụ thể:
@@ -28,7 +29,7 @@
   - Khi chơi game:  
     +) Người chơi có thể thoát khỏi màn chơi bằng nút _Exit_: [Picture](#)  
     +) Nếu muốn chơi lại màn chơi, chọn nút _Replay_: [Picture](#)  
-    +) Sau khi qua level chơi hiện tại, người chơi có thể đến level tiếp theo bằng nút _Continue_: [Picture](#)  
+    +) Sau khi qua level chơi hiện tại, người chơi có thể tiếp tục level tiếp theo bằng nút _Continue_: [Picture](#)  
 ### V. NHỮNG NGUỒN SỬ DỤNG ĐỂ TẠO GAME
   - Background: [link](#)
   - Character: [link](#)
