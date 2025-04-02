@@ -11,12 +11,13 @@
   - Tăng độ khó cho game bằng cách thêm 2 loại nền tảng mới: _Nền tảng biến mất_; _Nền tảng di chuyển_; có thể có sự kết hợp của cả 2 xuất hiện ở từng level theo xác xuất.
   - Cập nhật số lượng nền tảng tăng lên theo từng level.
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua.
+  - Cập nhật lại đồ hoạ cho game
 ### III. CÁCH CÀI ĐẶT GAME
   - Người chơi tải 4 thư viện SDL về và cài đặt SDL trên IDE đã có: [Picture](#)
   - 
 
 ### IV. HƯỠNG DẪN CHƠI GAME
-  Người chơi được lựa chọn level bất kì để chơi. Sau khi vượt qua các nền tảng của từng level tức là sẽ vượt qua level đó. Nếu qua hết các level tức là đã thắng cuộc và Hero sẽ cứu được Crush. Cụ thể:
+  Người chơi có thể lựa chọn level bất kì để chơi. Sau khi vượt qua các nền tảng của từng level tức là sẽ vượt qua level đó. Chỉ cần qua hết các level tức là đã dành chiến thắng và Hero cứu được Crush. Cụ thể:
   - Sau khi vào game và kích vào _Play_, sẽ dẫn chúng ta đến phần chọn level chơi:
   [Picture](#)
   - Ở phần lựa chọn level, người chơi được lựa chọn level bất kì, sau khi thắng 1 level sẽ được lưu lại kết quả: [Picture](#)
