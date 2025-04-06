@@ -7,11 +7,11 @@
 
   Game dựa trên ý tưởng từ game Monkey Stick: https://youtu.be/Op2xQs5VFmo?si=TQx7v1nbStfXMApl
 ### II. THAY ĐỔI MỚI DỰA TRÊN Ý TƯỞNG CŨ
-  - Thêm tính năng lựa chọn level, các nút: _Exit_, _Continue_, _Replay_. 
+  - Thêm tính năng level, các nút: _Exit_, _Continue_, _Replay_. 
   - Tăng độ khó cho game bằng cách thêm 2 loại nền tảng mới: _Nền tảng biến mất_; _Nền tảng di chuyển_; có thể có sự kết hợp của cả 2 xuất hiện ở từng level theo xác xuất.
   - Cập nhật số lượng nền tảng tăng lên theo từng level.
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua.
-  - Cập nhật lại đồ hoạ cho game
+  - Cập nhật lại đồ hoạ, âm thanh cho game
 ### III. CÁCH CÀI ĐẶT GAME
   - Người chơi tải 4 thư viện SDL về và cài đặt SDL trên IDE đã có: [Picture](#)
   - 
