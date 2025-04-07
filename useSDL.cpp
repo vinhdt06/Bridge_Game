@@ -21,7 +21,7 @@ void initSDL() {
 		SDL_FreeSurface(surface);
  	}
 	for (int i = 0; i < 6; i++) {
-		std::string filename = "Iump_Hero" + std::to_string(i + 1) + ".png";
+		std::string filename = "Jump_Hero" + std::to_string(i + 1) + ".png";
 		SDL_Surface* surface = IMG_Load(filename.c_str());
 		if (!surface) {
 			std::cerr << "Failed to load " << filename << ": " << IMG_GetError() << std::endl;
