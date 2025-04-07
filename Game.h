@@ -8,19 +8,21 @@
 
 const int SCREEN_WIDTH = 850;
 const int SCREEN_HEIGHT = 600;
-const int PLATFORM_WIDTH = 40;
+const int PLATFORM_WIDTH = 53;
 const int PLATFORM_HEIGHT = 270;
-const int STICK_WIDTH = 4;
+const int STICK_WIDTH = 5;
 const int PLATFORM_POS = 330;
 const int PLAT_DIS_MAX = 100;
 const int PLAT_DIS_MIN = 200;
 const int WIN_PLATFORMS = 4;
-const int HERO_SPEED = 6;
+const int HERO_SPEED = 5;
 const int TIME_STICK = 100;
 const int LEVEL_WIDTH_BUTTON = 80;
 const int LEVEL_HEIGHT_BUTTON = 80;
 const int LEVEL_DIS_BUTTON = 20;
 const int SCROLL_SPEED = 10;
+const float BACKGROUND_SCROLL = 0.3f;
+const int ANIMATION_SPEED = 200;
 
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
@@ -28,6 +30,8 @@ extern SDL_Texture* heroCharacter;
 extern SDL_Texture* homeBackground;
 extern SDL_Texture* levelMenuBackground;
 extern SDL_Texture* gameBackground;
+extern SDL_Texture* idleTextures[5];
+extern SDL_Texture* walkTextures[6];
 extern std::vector<Platform> platforms;
 extern SDL_Rect hero;
 extern SDL_Rect stick;
@@ -53,6 +57,9 @@ extern int stickTimeOk;
 extern int heroPos;
 extern int selectLevel;
 extern int scrollSpeed;
+extern int background;
+extern int currentFrame;
+
 
 enum gameState {
 	MAIN_MENU,
@@ -62,6 +69,7 @@ enum gameState {
 	LOST,
 	EXIT
 };
+Uint32 lastFrameTime;
 extern gameState gameState;
 
 void createPlatforms();

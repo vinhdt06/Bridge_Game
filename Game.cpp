@@ -3,6 +3,8 @@
 #include <cmath>
 #include <fstream>
 #include <ctime>
+#include <cstdlib>
+#include <string>
 
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
@@ -10,8 +12,10 @@ SDL_Texture* heroCharacter = nullptr;
 SDL_Texture* homeBackground = nullptr;
 SDL_Texture* levelMenuBackground = nullptr;
 SDL_Texture* gameBackground = nullptr;
+SDL_Texture* idleTextures[5] = { nullptr };
+SDL_Texture* walkTextures[6] = { nullptr };
 std::vector<Platform> platforms;
-SDL_Rect hero = { 100, SCREEN_HEIGHT - 100, 35, 35 };
+SDL_Rect hero = { 100, SCREEN_HEIGHT - 100, 52, 52 };
 SDL_Rect stick = { 0, 0, STICK_WIDTH, 0 };
 
 bool stickLength = false;
@@ -35,7 +39,10 @@ int stickTimeOk = TIME_STICK;
 int heroPos = 0;
 int selectLevel = 0;
 int scrollSpeed = SCROLL_SPEED;
+int background = 0;
+int currentFrame = 0;
 
+Uint32 lastFrameTime = 0;
 GameState gameState = MAIN_MENU;
 
 
