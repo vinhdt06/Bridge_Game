@@ -17,10 +17,10 @@
   - 
 
 ### IV. HƯỠNG DẪN CHƠI GAME
-  Người chơi có thể lựa chọn level bất kì để chơi. Sau khi vượt qua các nền tảng của từng level tức là sẽ vượt qua level đó. Chỉ cần qua hết các level tức là đã dành chiến thắng và Hero cứu được Crush. Cụ thể:
+  Người chơi phải chơi lần lượt từng level, nếu chưa qua level trước thì không thể mở khoá level sau. Chỉ cần vượt qua hết các level tức là đã dành chiến thắng và Hero cứu được Crush. Cụ thể:
   - Sau khi vào game và kích vào _Play Now_, sẽ dẫn chúng ta đến phần chọn level chơi:
   [Picture](#)
-  - Ở phần lựa chọn level, người chơi được lựa chọn level bất kì, sau khi thắng 1 level sẽ được lưu lại kết quả: [Picture](#)
+  - Ở phần lựa chọn level, người chơi bắt đầu từ level đầu tiên, sau khi thắng 1 level sẽ được lưu lại kết quả: [Picture](#)
   - Trong 1 level chơi, nhiệm vụ của người chơi là kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua: [Picture](#)
   - Nền tảng sẽ gồm 3 loại:  
     1. _Nền tảng bình thường_: nền tảng dễ chơi nhất, người chơi chỉ việc kéo đủ chiều dài gậy để đi qua mà không gặp bất kì khó khăn nào: [Picture](#)
