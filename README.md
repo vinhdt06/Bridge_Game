@@ -7,7 +7,7 @@
 
   Game dựa trên ý tưởng từ game Monkey Stick: https://youtu.be/Op2xQs5VFmo?si=TQx7v1nbStfXMApl
 ### II. THAY ĐỔI MỚI DỰA TRÊN Ý TƯỞNG CŨ
-  - Thêm tính năng level, các nút: _Exit_, _Continue_, _Replay_. 
+  - Thêm tính năng level, các nút: _Back_, _Continue_, _Replay_. 
   - Tăng độ khó cho game bằng cách thêm 2 loại nền tảng mới: _Nền tảng biến mất_; _Nền tảng di chuyển_; có thể có sự kết hợp của cả 2 xuất hiện ở từng level theo xác xuất.
   - Cập nhật số lượng nền tảng tăng lên theo từng level.
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua.
@@ -18,7 +18,7 @@
 
 ### IV. HƯỠNG DẪN CHƠI GAME
   Người chơi có thể lựa chọn level bất kì để chơi. Sau khi vượt qua các nền tảng của từng level tức là sẽ vượt qua level đó. Chỉ cần qua hết các level tức là đã dành chiến thắng và Hero cứu được Crush. Cụ thể:
-  - Sau khi vào game và kích vào _Play_, sẽ dẫn chúng ta đến phần chọn level chơi:
+  - Sau khi vào game và kích vào _Play Now_, sẽ dẫn chúng ta đến phần chọn level chơi:
   [Picture](#)
   - Ở phần lựa chọn level, người chơi được lựa chọn level bất kì, sau khi thắng 1 level sẽ được lưu lại kết quả: [Picture](#)
   - Trong 1 level chơi, nhiệm vụ của người chơi là kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua: [Picture](#)
@@ -28,13 +28,13 @@
     3. _Nền tảng di chuyển_: nền tảng này dịch chuyển quanh vị trí nó đứng, là nền tảng khó nhất, đòi hỏi người chơi phải linh hoạt trong việc kéo gậy di chuyển: [Picture](#)  
   - Ngoài ra, có thể có sự kết hợp ngẫu nhiên giữa nền tảng biến mất và nền tảng di chuyển, tức là vừa giới hạn thời gian đứng vừa dịch chuyển.
   - Khi chơi game:  
-    +) Người chơi có thể thoát khỏi màn chơi bằng nút _Exit_: [Picture](#)  
+    +) Người chơi có thể thoát khỏi màn chơi bằng nút _Back_: [Picture](#)  
     +) Nếu muốn chơi lại màn chơi, chọn nút _Replay_: [Picture](#)  
     +) Sau khi qua level chơi hiện tại, người chơi có thể tiếp tục level tiếp theo bằng nút _Continue_: [Picture](#)  
 ### V. NHỮNG NGUỒN SỬ DỤNG ĐỂ TẠO GAME
   - Background: [link](#)
   - Character: [link](#)
-  - ButtonGame: https://vi.pngtree.com/freepng/big-set-buttons-icons-elements-for-game-cartoon-casual-games-and-application_5100112.html
+  - ButtonGame: các ô level được vẽ bởi AI, 
   - Music: [link](#)
   - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek.
   - Lazyfoo hỗ trợ dùng SDL.
