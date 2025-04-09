@@ -40,7 +40,7 @@
   - Music:  
     +) Click: https://pixabay.com/vi/sound-effects/search/game%20%e1%ba%a5n%20n%c3%bat/  
     +) Playing: https://tiengdong.com/tieng-nuoc-chay-chim-hot  
-    +) Main:  
+    +) Main: https://pixabay.com/vi/music/search/genre/tr%c3%b2%20ch%c6%a1i%20video/?pagi=2   
     +) Fall: https://tiengdong.com/tieng-co-the-roi-xuong-sich  
     +) Win:  
   - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek.
