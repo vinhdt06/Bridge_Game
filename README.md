@@ -28,13 +28,15 @@
     3. _Nền tảng di chuyển_: nền tảng này dịch chuyển quanh vị trí nó đứng, là nền tảng khó nhất, đòi hỏi người chơi phải linh hoạt trong việc kéo gậy di chuyển: [Picture](#)  
   - Ngoài ra, có thể có sự kết hợp ngẫu nhiên giữa nền tảng biến mất và nền tảng di chuyển, tức là vừa giới hạn thời gian đứng vừa dịch chuyển.
   - Khi chơi game:  
-    +) Người chơi có thể thoát khỏi màn chơi bằng nút _Back_: [Picture](#)  
+    +) Người chơi có thể quay lại bằng nút _Back_: [Picture](#)  
     +) Nếu muốn chơi lại màn chơi, chọn nút _Replay_: [Picture](#)  
     +) Sau khi qua level chơi hiện tại, người chơi có thể tiếp tục level tiếp theo bằng nút _Continue_: [Picture](#)  
 ### V. NHỮNG NGUỒN SỬ DỤNG ĐỂ TẠO GAME
   - Background: [link](#)
-  - Character: [link](#)
-  - ButtonGame: các ô level được vẽ bởi AI, 
+  - Character: https://www.shutterstock.com/vi/image-vector/ninja-game-sprites-suitable-side-scrolling-496110337
+  - ButtonGame:  
+    +) Các ô level được vẽ bởi AI  
+    +) Các nút còn lại: https://pngtree.com/freepng/set-of-wood-game-buttons-icon-material_6002466.html  
   - Music:  
     +) Click: https://pixabay.com/vi/sound-effects/search/game%20%e1%ba%a5n%20n%c3%bat/  
     +) Playing: https://tiengdong.com/tieng-nuoc-chay-chim-hot  
@@ -43,4 +45,6 @@
     +) Win:  
   - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek.
   - Lazyfoo hỗ trợ dùng SDL.
+  - Chuyển âm thanh sang dạng wav.
+  - Xoá phông nền hình ảnh.
 
