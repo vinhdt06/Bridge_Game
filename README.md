@@ -35,7 +35,12 @@
   - Background: [link](#)
   - Character: [link](#)
   - ButtonGame: các ô level được vẽ bởi AI, 
-  - Music: [link](#)
+  - Music:
+    +) Click: https://pixabay.com/vi/sound-effects/search/game%20%e1%ba%a5n%20n%c3%bat/
+    +) Playing: https://tiengdong.com/tieng-nuoc-chay-chim-hot
+    +) Main:
+    +) Fall: https://tiengdong.com/tieng-co-the-roi-xuong-sich
+    +) Win: 
   - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek.
   - Lazyfoo hỗ trợ dùng SDL.
 
