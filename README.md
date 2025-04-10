@@ -7,11 +7,11 @@
 
   Game dựa trên ý tưởng từ game Monkey Stick: https://youtu.be/Op2xQs5VFmo?si=TQx7v1nbStfXMApl
 ### II. THAY ĐỔI MỚI DỰA TRÊN Ý TƯỞNG CŨ
-  - Thêm tính năng level, các nút: _Back_, _Continue_, _Replay_. 
-  - Tăng độ khó cho game bằng cách thêm 2 loại nền tảng mới: _Nền tảng biến mất_; _Nền tảng di chuyển_; có thể có sự kết hợp của cả 2 xuất hiện ở từng level theo xác xuất.
+  - Thêm tính năng level, các nút: _Back_, _Continue_.   
+  - Tăng độ khó cho game bằng cách thêm 2 loại nền tảng mới: _Nền tảng biến mất_; _Nền tảng di chuyển_; có thể có sự kết hợp của cả 2 xuất hiện ở từng level theo xác suất.
   - Cập nhật số lượng nền tảng tăng lên theo từng level.
-  - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua.
-  - Cập nhật lại đồ hoạ, âm thanh cho game
+  - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua, mở khoá level mới khi hoàn thành level hiện tại.
+  - Cập nhật lại đồ hoạ, âm thanh mới cho game.
 ### III. CÁCH CÀI ĐẶT GAME
   - Người chơi tải 4 thư viện SDL về và cài đặt SDL trên IDE đã có: [Picture](#)
   - 
@@ -32,7 +32,10 @@
     +) Nếu muốn chơi lại màn chơi, chọn nút _Replay_: [Picture](#)  
     +) Sau khi qua level chơi hiện tại, người chơi có thể tiếp tục level tiếp theo bằng nút _Continue_: [Picture](#)  
 ### V. NHỮNG NGUỒN SỬ DỤNG ĐỂ TẠO GAME
-  - Background: [link](#)
+  - Background:  
+    +) Popup: https://pngtree.com/freepng/popup-wooden-game_6839509.html  
+    +) Main:  
+    +) Playing:  
   - Character: https://www.shutterstock.com/vi/image-vector/ninja-game-sprites-suitable-side-scrolling-496110337
   - ButtonGame:  
     +) Các ô level được vẽ bởi AI  
@@ -45,7 +48,7 @@
     +) Fall: https://tiengdong.com/tieng-co-the-roi-xuong-sich  
     +) Win:
   - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek.
-  - Lazyfoo hỗ trợ dùng SDL.
   - Chuyển âm thanh sang dạng wav.
   - Xoá phông nền hình ảnh.
+  - Kết hợp sử dụng cả 4 thư viện SDL cho game: SDL, SDL_image, SDL_mixer, SDL_ttf.
 
