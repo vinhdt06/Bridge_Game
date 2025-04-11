@@ -1,4 +1,6 @@
 ﻿#include "Game.h"
+#include <cstdlib>
+#include <ctime>
 
 int main(int argc, char* argv[]) {
 	bool running = true;

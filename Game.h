@@ -1,10 +1,10 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <SDL.h>
-#include <SDL_image.h>
 #include <vector>
+#include <string>
 #include "Platform.h"
+#include "useSDL.h"
 
 const int SCREEN_WIDTH = 850;
 const int SCREEN_HEIGHT = 600;
@@ -23,18 +23,29 @@ const int LEVEL_DIS_BUTTON = 20;
 const int SCROLL_SPEED = 10;
 const float BACKGROUND_SCROLL = 0.3f;
 const int ANIMATION_SPEED = 200;
+const int BUTTON_SIZE = 80;
+const float HOVER_SCALE = 1.2f;
 
 extern SDL_Window* window;
 extern SDL_Renderer* renderer;
-extern SDL_Texture* heroCharacter;
 extern SDL_Texture* homeBackground;
 extern SDL_Texture* levelMenuBackground;
 extern SDL_Texture* gameBackground;
+extern SDL_Texture* replayButton;
+extern SDL_Texture* continueButton;
+extern SDL_Texture* exitButton;
+extern SDL_Texture* playButton;
+extern SDL_Texture* levelButton[20];
+extern SDL_Texture* lockedLevel;
+extern SDL_Texture* popup;
+extern SDL_Texture* title;
 extern SDL_Texture* idleTextures[5];
 extern SDL_Texture* walkTextures[6];
 extern std::vector<Platform> platforms;
 extern SDL_Rect hero;
 extern SDL_Rect stick;
+extern SDL_Texture* soundOnTexture;
+extern SDL_Texture* soundOffTexture;
 
 extern bool stickLength;
 extern bool stickTurn;
@@ -47,6 +58,18 @@ extern bool scrollScreen;
 extern bool camePlatforms;
 extern bool wonGame;
 extern bool showWin;
+extern bool hasPlayedFallSound;
+extern bool hasPlayedWinSound;
+extern bool isSoundOn;
+extern bool isMainMusicPlaying;
+extern bool isGameMusicPlaying;
+extern bool isSoundButtonHovered;
+extern bool isPlayButtonHovered;
+extern bool isExitButtonHovered;
+extern bool isBackButtonHovered;
+extern bool isReplayButtonHovered;
+extern bool isContinueButtonHovered;
+extern bool levelButtonHovered[20];
 
 extern double stickAngle;
 extern int platformsPassed;
@@ -59,7 +82,15 @@ extern int selectLevel;
 extern int scrollSpeed;
 extern int background;
 extern int currentFrame;
+extern int backgroundX;
+extern int walkSoundChannel;
 
+extern Mix_Chunk* fallSound = nullptr;
+extern Mix_Chunk* winSound = nullptr;
+extern Mix_Music* mainMusic = nullptr;
+extern Mix_Music* playingMusic = nullptr;
+extern Mix_Chunk* clickSound = nullptr;
+extern Mix_Chunk* walkSound = nullptr;
 
 enum gameState {
 	MAIN_MENU,
@@ -69,8 +100,11 @@ enum gameState {
 	LOST,
 	EXIT
 };
-Uint32 lastFrameTime;
+
+extern Uint32 lastFrameTime;
 extern gameState gameState;
+extern TTF_Font* font = nullptr;
+extern SDL_Color textColor = { 255, 255, 255, 255 };
 
 void createPlatforms();
 void Levels(int level);

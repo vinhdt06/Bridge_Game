@@ -1,22 +1,27 @@
 #include "Game.h"
-#include <iostream>
 #include <cmath>
 #include <fstream>
-#include <ctime>
-#include <cstdlib>
-#include <string>
 
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
-SDL_Texture* heroCharacter = nullptr;
 SDL_Texture* homeBackground = nullptr;
 SDL_Texture* levelMenuBackground = nullptr;
 SDL_Texture* gameBackground = nullptr;
+SDL_Texture* replayButton = nullptr;
+SDL_Texture* continueButton = nullptr;
+SDL_Texture* exitButton = nullptr;
+SDL_Texture* playButton = nullptr;
+SDL_Texture* levelButton[20] = { nullptr };
+SDL_Texture* lockedLevel = nullptr;
+SDL_Texture* popup = nullptr;
+SDL_Texture* title = nullptr;
 SDL_Texture* idleTextures[5] = { nullptr };
 SDL_Texture* walkTextures[6] = { nullptr };
 std::vector<Platform> platforms;
 SDL_Rect hero = { 100, SCREEN_HEIGHT - 100, 52, 52 };
 SDL_Rect stick = { 0, 0, STICK_WIDTH, 0 };
+SDL_Texture* soundOnTexture = nullptr;
+SDL_Texture* soundOffTexture = nullptr;
 
 bool stickLength = false;
 bool stickTurn = false;
@@ -29,6 +34,18 @@ bool scrollScreen = false;
 bool camePlatforms = false;
 bool wonGame = false;
 bool showWin = false;
+bool hasPlayedFallSound = false;
+bool hasPlayedWinSound = false;
+bool isSoundOn = true;
+bool isMainMusicPlaying = false;
+bool isGameMusicPlaying = false;
+bool isSoundButtonHovered = false;
+bool isPlayButtonHovered = false;
+bool isExitButtonHovered = false;
+bool isBackButtonHovered = false;
+bool isReplayButtonHovered = false;
+bool isContinueButtonHovered = false;
+bool levelButtonHovered[20] = { false };
 
 double stickAngle = 0;
 int platformsPassed = 0;
@@ -39,8 +56,17 @@ int stickTimeOk = TIME_STICK;
 int heroPos = 0;
 int selectLevel = 0;
 int scrollSpeed = SCROLL_SPEED;
-int background = 0;
+int background = 1;
 int currentFrame = 0;
+int backgroundX = 0;
+int walkSoundChannel = -1;
+
+Mix_Chunk* fallSound = nullptr;
+Mix_Chunk* winSound = nullptr;
+Mix_Music* mainMusic = nullptr;
+Mix_Music* playingMusic = nullptr;
+Mix_Chunk* clickSound = nullptr;
+Mix_Chunk* walkSound = nullptr;
 
 Uint32 lastFrameTime = 0;
 GameState gameState = MAIN_MENU;
