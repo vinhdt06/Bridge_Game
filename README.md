@@ -35,8 +35,8 @@
   - Background:  
     +) Popup: https://pngtree.com/freepng/popup-wooden-game_6839509.html  
     +) Main:  
-    +) Playing:
-    +) Title: Vẽ bởi AI.
+    +) Playing:  
+    +) Title: Vẽ bởi AI.  
   - Character: https://www.shutterstock.com/vi/image-vector/ninja-game-sprites-suitable-side-scrolling-496110337
   - ButtonGame:  
     +) Các ô level được vẽ bởi AI  
