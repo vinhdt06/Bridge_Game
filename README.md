@@ -35,7 +35,8 @@
   - Background:  
     +) Popup: https://pngtree.com/freepng/popup-wooden-game_6839509.html  
     +) Main:  
-    +) Playing:  
+    +) Playing:
+    +) Title: Vẽ bởi AI.
   - Character: https://www.shutterstock.com/vi/image-vector/ninja-game-sprites-suitable-side-scrolling-496110337
   - ButtonGame:  
     +) Các ô level được vẽ bởi AI  
@@ -46,7 +47,7 @@
     +) Main: https://pixabay.com/vi/music/search/genre/tr%c3%b2%20ch%c6%a1i%20video/?pagi=2  
     +) Walk: https://pixabay.com/vi/sound-effects/search/game%20nh%c3%a2n%20v%e1%ba%adt%20ch%e1%ba%a1y/?pagi=3  
     +) Fall: https://tiengdong.com/tieng-co-the-roi-xuong-sich  
-    +) Win:
+    +) Win: https://tiengdong.com/am-thanh-gianh-chien-thang-trong-cac-tro-choi-dien-tu
   - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek.
   - Chuyển âm thanh sang dạng wav.
   - Xoá phông nền hình ảnh.
