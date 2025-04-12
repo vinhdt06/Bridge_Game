@@ -88,6 +88,10 @@ extern int backgroundX;
 extern int walkSoundChannel;
 extern int stretchSoundChannel;
 extern int fallSoundChannel;
+extern int shakeDuration;
+extern int shakeMagnitude;
+extern int shakeX;
+extern int shakeY;
 
 extern Mix_Chunk* fallSound;
 extern Mix_Chunk* hitGroundSound;
@@ -99,7 +103,7 @@ extern Mix_Chunk* walkSound;
 extern Mix_Chunk* stretchSound;
 extern Mix_Chunk* placeSound;
 
-enum gameState {
+enum GameState {
 	MAIN_MENU,
 	LEVEL_MENU,
 	PLAYING,
@@ -109,7 +113,7 @@ enum gameState {
 };
 
 extern Uint32 lastFrameTime;
-extern gameState gameState;
+extern GameState gameState;
 extern TTF_Font* font;
 extern SDL_Color textColor;
 
@@ -129,3 +133,5 @@ void faceGame();
 void setEvent(SDL_Event& event, bool& running);
 void resetGame();
 void cleanup();
+
+#endif

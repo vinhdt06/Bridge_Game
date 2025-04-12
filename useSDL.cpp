@@ -12,7 +12,7 @@ void initSDL() {
 	renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
-	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMORE_BLEND);
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
 	font = TTF_OpenFont("arial.ttf", 34);
 
 	for (int i = 0; i < 5; i++) {
@@ -20,7 +20,7 @@ void initSDL() {
 		SDL_Surface* surface = IMG_Load(filename.c_str());
 		idleTextures[i] = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
- 	}
+	}
 	for (int i = 0; i < 6; i++) {
 		std::string filename = "Jump_Hero" + std::to_string(i + 1) + ".png";
 		SDL_Surface* surface = IMG_Load(filename.c_str());
@@ -32,11 +32,11 @@ void initSDL() {
 	homeBackground = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	SDL_Surface* surface = IMG_Load("Background2.png");
+	surface = IMG_Load("Background2.png");
 	levelMenuBackground = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	SDL_Surface* surface = IMG_Load("Background1.png");
+	surface = IMG_Load("Background1.png");
 	gameBackground = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 

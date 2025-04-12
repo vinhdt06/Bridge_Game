@@ -64,6 +64,10 @@ int backgroundX = 0;
 int walkSoundChannel = -1;
 int stretchSoundChannel = -1;
 int fallSoundChannel = -1;
+int shakeDuration = 0;
+int shakeMagnitude = 3;
+int shakeX = 0;
+int shakeY = 0;
 
 Mix_Chunk* fallSound = nullptr;
 Mix_Chunk* hitGroundSound = nullptr;
@@ -93,7 +97,7 @@ void renderText(const char* text, int x, int y, SDL_Color color) {
 void createPlatforms() {
 	platforms.clear();
 	int randomPlatform = PLATFORM_WIDTH + rand() % 10;
-	platforms.push_back({ 50, PLATFORM_POS, randomplatform, PLATFORM_HEIGHT });
+	platforms.push_back({ 50, PLATFORM_POS, randomPlatform, PLATFORM_HEIGHT });
 	platforms.back().firstPos = platforms.back().x;
 	for (int i = 1; i < 4; i++) {
 		randomPlatform = PLATFORM_WIDTH + rand() % 10;
@@ -356,8 +360,8 @@ void renderSoundButton() {
 void saveLevels() {
 	std::ofstream file("level_completion.dat", std::ios::binary);
 	if (file.is_open()) {
-		file.write(reinterpret_cast<char*>(completeLevel), sizeof(completeLevel);
-		file.close()
+		file.write(reinterpret_cast<char*>(completeLevel), sizeof(completeLevel));
+		file.close();
 	}
 }
 
@@ -370,7 +374,7 @@ void openLevels() {
 }
 
 int indexPlatforms() {
-	for(int i = 0; i < (int)platforms.size(); i++) {
+	for (int i = 0; i < (int)platforms.size(); i++) {
 		if (hero.x + hero.w > platforms[i].x && hero.x < platforms[i].x + platforms[i].w && hero.y + hero.h == platforms[i].y) return i;
 	}
 	return -1;
@@ -551,7 +555,7 @@ void problemGame() {
 		bool flagPlatforms = false;
 		for (const auto& plat : platforms) {
 			if (hero.x + hero.w > plat.x && hero.x < plat.x + plat.w && hero.y + hero.h == plat.y) {
-				lagPlatforms = true;
+				flagPlatforms = true;
 				break;
 			}
 		}
@@ -560,73 +564,141 @@ void problemGame() {
 }
 
 void faceGame() {
-	if(gameState == MAIN_MENU) {
-		SDL_RenderCopy(renderer, homeBackground, nullptr, nullptr);
+	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+	SDL_RenderClear(renderer);
+	if (gameState == MAIN_MENU) {
 		MainMenu();
 	}
 	else if (gameState == LEVEL_MENU) {
-		SDL_RenderCopy(renderer, levelMenuBackground, nullptr, nullptr);
 		LevelMenu();
 	}
-	else if (gameState == PLAYING) {
-		SDL_RenderCopy(renderer, gameBackground, nullptr, nullptr);
-		if (stickLength) {
-			SDL_SetRenderDrawColor(renderer, 80, 40, 20, 255);
-			SDL_Rect stickForm1 = { stick.x, stick.y, stick.w, stick.h };
-			SDL_RenderFillRect(renderer, &stickForm1);
-		}
-		else if (stickTurn || stickDown) {
-			SDL_SetRenderDrawColor(renderer, 80, 40, 20, 255);
-			SDL_Rect stickForm2 = { stick.x, stick.y, stick.w, stick.h };
-			SDL_RenderFillRect(renderer, &stickForm2);
-		}
-		for (const auto plat : platforms) {
-			if (plat.w > 0 && plat.h > 0) {
-				if (plat.platformsDisappear && plat.timeDisappear <= 70) {
-					if (rand() % 2 == 0) {
-						SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+	else if (gameState == PLAYING || gameState == WON || gameState == LOST) {
+		SDL_Rect bgRect1 = { backgroundX + shakeX, shakeY, SCREEN_WIDTH, SCREEN_HEIGHT };
+		SDL_Rect bgRect2 = { backgroundX + SCREEN_WIDTH + shakeX, shakeY, SCREEN_WIDTH, SCREEN_HEIGHT };
+		SDL_RenderCopy(renderer, gameBackground, nullptr, &bgRect1);
+		SDL_RenderCopy(renderer, gameBackground, nullptr, &bgRect2);
+
+		if (gameState == PLAYING || gameState == WON) {
+			if (stickLength) {
+				SDL_SetRenderDrawColor(renderer, 80, 40, 20, 255);
+				SDL_Rect growingStick = { stick.x + shakeX, stick.y + shakeY, stick.w, stick.h };
+				SDL_RenderFillRect(renderer, &growingStick);
+			}
+			else if (stickTurn || stickDown) {
+				SDL_SetRenderDrawColor(renderer, 80, 40, 20, 255);
+				SDL_Rect rotatedStick = { stick.x + shakeX, stick.y + shakeY, stick.w, stick.h };
+				SDL_RenderFillRect(renderer, &rotatedStick);
+			}
+
+			for (const auto& plat : platforms) {
+				if (plat.w > 0 && plat.h > 0) {
+					if (gameState == PLAYING && plat.platformsDisappear && plat.timeDisappear <= 70) {
+						if (rand() % 2 == 0) {
+							SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+						}
+						else {
+							SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+						}
 					}
 					else {
 						SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 					}
+					SDL_Rect rect = { plat.x + shakeX, plat.y + shakeY, plat.w, plat.h };
+					SDL_RenderFillRect(renderer, &rect);
+				}
+			}
+
+			SDL_Rect monkeyRect = { hero.x + shakeX, hero.y + shakeY, hero.w, hero.h };
+			if (heroWalk) {
+				if (walkTextures[currentFrame] != nullptr) {
+					SDL_RenderCopy(renderer, walkTextures[currentFrame], nullptr, &monkeyRect);
 				}
 				else {
-					SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+					SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+					SDL_RenderFillRect(renderer, &monkeyRect);
 				}
-				SDL_Rect rect = { plat.x, plat.y, plat.w, plat.h };
-				SDL_RenderFillRect(renderer, &rect);
+			}
+			else {
+				if (idleTextures[currentFrame] != nullptr) {
+					SDL_RenderCopy(renderer, idleTextures[currentFrame], nullptr, &monkeyRect);
+				}
+				else {
+					SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+					SDL_RenderFillRect(renderer, &monkeyRect);
+				}
+			}
+
+			if (gameState == PLAYING) {
+				int backButtonSize = isBackButtonHovered ? static_cast<int>(BUTTON_SIZE * HOVER_SCALE) : BUTTON_SIZE;
+				SDL_Rect backButtonRect = {
+					10 + shakeX + (BUTTON_SIZE - backButtonSize) / 2,
+					10 + shakeY + (BUTTON_SIZE - backButtonSize) / 2,
+					backButtonSize,
+					backButtonSize
+				};
+				if (exitButton != nullptr) {
+					SDL_RenderCopy(renderer, exitButton, nullptr, &backButtonRect);
+				}
+				else {
+					SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+					SDL_Rect fallbackRect = { 10 + shakeX + (BUTTON_SIZE - backButtonSize) / 2, 10 + shakeY + (BUTTON_SIZE - backButtonSize) / 2, backButtonSize, backButtonSize };
+					SDL_RenderFillRect(renderer, &fallbackRect);
+				}
 			}
 		}
+		if (gameState == WON) {
+			ifWinGame();
+		}
+		if (gameState == LOST) {
+			SDL_Rect popupRect = { SCREEN_WIDTH / 2 - 150 + shakeX, SCREEN_HEIGHT / 2 - 125 + shakeY, 300, 250 };
 
-		SDL_RenderCopy(renderer, heroCharacter, nullptr, &hero);
-		SDL_Rect backButton = { 10, 10, 100, 40 };
-		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-		SDL_RenderFillRect(renderer, &backButton);
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderDrawRect(renderer, &backButton);
-	}
-	else if (gameState == WON) {
-		ifWinGame();
-	}
-	else if (gameState == LOST) {
-		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-		SDL_Rect lose = { SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 50, 200, 100 };
-		SDL_RenderFillRect(renderer, &lose);
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderDrawRect(renderer, &lose);
+			if (popup != nullptr) {
+				SDL_RenderCopy(renderer, popup, nullptr, &popupRect);
+			}
+			else {
+				SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+				SDL_RenderFillRect(renderer, &popupRect);
 
-		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-		SDL_Rect rePlayButton = { SCREEN_WIDTH / 2 - 120, SCREEN_HEIGHT / 2 + 20, 100, 40 };
-		SDL_RenderFillRect(renderer, &rePlayButton);
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderDrawRect(renderer, &rePlayButton);
+				SDL_SetRenderDrawColor(renderer, 139, 69, 19, 255);
+				SDL_Rect brownRect = { SCREEN_WIDTH / 2 - 150 + shakeX, SCREEN_HEIGHT / 2 - 125 + shakeY, 300, 50 };
+				SDL_RenderFillRect(renderer, &brownRect);
+			}
+			renderText("You Lose", SCREEN_WIDTH / 2 - 66 + shakeX, SCREEN_HEIGHT / 2 - 76 + shakeY, textColor);
 
-		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-		SDL_Rect homeButton = { SCREEN_WIDTH / 2 + 20, SCREEN_HEIGHT / 2 + 20, 100, 40 };
-		SDL_RenderFillRect(renderer, &homeButton);
-		SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-		SDL_RenderDrawRect(renderer, &homeButton);
+			int replayButtonSize = isReplayButtonHovered ? static_cast<int>(BUTTON_SIZE * HOVER_SCALE) : BUTTON_SIZE;
+			SDL_Rect replayButtonRect = {
+				SCREEN_WIDTH / 2 - 60 - replayButtonSize / 2 + shakeX,
+				SCREEN_HEIGHT / 2 + 20 - replayButtonSize / 2 + shakeY,
+				replayButtonSize,
+				replayButtonSize
+			};
+			if (replayButton != nullptr) {
+				SDL_RenderCopy(renderer, replayButton, nullptr, &replayButtonRect);
+			}
+			else {
+				SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+				SDL_Rect fallbackRect = { SCREEN_WIDTH / 2 - 80 + shakeX, SCREEN_HEIGHT / 2 + 20 - replayButtonSize / 2 + shakeY, replayButtonSize, replayButtonSize };
+				SDL_RenderFillRect(renderer, &fallbackRect);
+			}
+
+			int exitButtonSize = isExitButtonHovered ? static_cast<int>(BUTTON_SIZE * HOVER_SCALE) : BUTTON_SIZE;
+			SDL_Rect exitButtonRect = {
+				SCREEN_WIDTH / 2 + 55 - exitButtonSize / 2 + shakeX,
+				SCREEN_HEIGHT / 2 + 22 - exitButtonSize / 2 + shakeY,
+				exitButtonSize,
+				exitButtonSize
+			};
+			if (exitButton != nullptr) {
+				SDL_RenderCopy(renderer, exitButton, nullptr, &exitButtonRect);
+			}
+			else {
+				SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+				SDL_Rect fallbackRect = { SCREEN_WIDTH / 2 + 80 + shakeX, SCREEN_HEIGHT / 2 + 20 - exitButtonSize / 2 + shakeY, exitButtonSize, exitButtonSize };
+				SDL_RenderFillRect(renderer, &fallbackRect);
+			}
+		}
 	}
+	renderSoundButton();
 	SDL_RenderPresent(renderer);
 }
 
@@ -650,21 +722,21 @@ void setEvent(SDL_Event& event, bool& running) {
 			}
 			else if (event.type == SDL_KEYDOWN) {
 				switch (event.key.keysym.sym) {
-					case SDLK_UP;
-						selectLevel = (selectLevel > 0) ? selectLevel - 1 : 1;
-						break;
-					case SDLK_DOWN:
-						selectLevel = (selectLevel < 1) ? selectLevel + 1 : 0;
-						break;
-					case SDLK_RETURN:
-						if (selectLevel == 0) gameState = LEVEL_MENU;
-						else if (selectLevel == 1) gameState = EXIT;
-						break;
+				case SDLK_UP:
+					selectLevel = (selectLevel > 0) ? selectLevel - 1 : 1;
+					break;
+				case SDLK_DOWN:
+					selectLevel = (selectLevel < 1) ? selectLevel + 1 : 0;
+					break;
+				case SDLK_RETURN:
+					if (selectLevel == 0) gameState = LEVEL_MENU;
+					else if (selectLevel == 1) gameState = EXIT;
+					break;
 				}
 			}
 		}
 		else if (gameState == LEVEL_MENU) {
-			if (event.type == MOUSEBUTTONDOWN) {
+			if (event.type == SDL_MOUSEBUTTONDOWN) {
 				int mouseX = event.button.x;
 				int mouseY = event.button.y;
 				const int LEVEL_WIDTH_BUT = 80;
@@ -676,7 +748,7 @@ void setEvent(SDL_Event& event, bool& running) {
 				int startPosY = (SCREEN_HEIGHT - levelHeight) / 2 + 50;
 
 				for (int i = 0; i < 4; i++) {
-					for (int i = 0; i < 5; i++) {
+					for (int j = 0; j < 5; j++) {
 						int indexLevel = 5 * i + j + 1;
 						SDL_Rect levelBut = {
 							startPosX + j * (LEVEL_WIDTH_BUT + LEVEL_DIS_BUT),
