@@ -34,12 +34,12 @@
 ### V. NHỮNG NGUỒN SỬ DỤNG ĐỂ TẠO GAME
   - Background:  
     +) Popup: https://pngtree.com/freepng/popup-wooden-game_6839509.html  
-    +) Main:  
-    +) Playing:  
-    +) Title: Vẽ bởi AI.  
-  - Character: https://www.shutterstock.com/vi/image-vector/ninja-game-sprites-suitable-side-scrolling-496110337
+    +) Main + MenuLevel: https://www.wallpaperflare.com/deer-and-trees-deer-in-forest-during-sunset-drawing-animals-wallpaper-cs  
+    +) Playing: https://e0.pxfuel.com/wallpapers/468/274/desktop-wallpaper-eagle-landscape-mountains-minimalist-artist-background-and.jpg    
+    +) Title + TitleLevel: Vẽ bởi AI.   
+  - Character: https://www.shutterstock.com/vi/image-vector/ninja-game-sprites-suitable-side-scrolling-496110337  
   - ButtonGame:  
-    +) Các ô level được vẽ bởi AI  
+    +) Các ô level: Vẽ bởi AI  
     +) Các nút còn lại: https://pngtree.com/freepng/set-of-wood-game-buttons-icon-material_6002466.html  
   - Music:  
     +) Click: https://pixabay.com/vi/sound-effects/search/game%20%e1%ba%a5n%20n%c3%bat/  
