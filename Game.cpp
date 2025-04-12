@@ -15,6 +15,7 @@ SDL_Texture* levelButton[20] = { nullptr };
 SDL_Texture* lockedLevel = nullptr;
 SDL_Texture* popup = nullptr;
 SDL_Texture* title = nullptr;
+SDL_Texture* SelectLevel = nullptr;
 SDL_Texture* idleTextures[5] = { nullptr };
 SDL_Texture* walkTextures[6] = { nullptr };
 std::vector<Platform> platforms;
@@ -239,19 +240,16 @@ void MainMenu() {
 
 void LevelMenu() {
 	SDL_RenderCopy(renderer, levelMenuBackground, nullptr, nullptr);
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_Rect titleGame = { SCREEN_WIDTH / 2 - 150, 50, 300, 60 };
-	SDL_RenderFillRect(renderer, &titleGame);
-
-	SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Select Level", textColor);
-	if (textSurface) {
-		int textWidth = textSurface->w;
-		int textHeight = textSurface->h;
-		renderText("Select Level", SCREEN_WIDTH / 2 - textWidth / 2, 50 + (60 - textHeight) / 2, textColor);
-		SDL_FreeSurface(textSurface);
-	}
-	else {
-		renderText("Select Level", SCREEN_WIDTH / 2 - 90, 65, textColor);
+	if (SelectLevel != nullptr) {
+		int texWidth, texHeight;
+		SDL_QueryTexture(SelectLevel, nullptr, nullptr, &texWidth, &texHeight);
+		float scale = 0.4f;
+		int scaledWidth = static_cast<int>(texWidth * scale);
+		int scaledHeight = static_cast<int>(texHeight * scale);
+		SDL_Rect selectLevelRect = {
+			SCREEN_WIDTH / 2 - scaledWidth / 2, -11, scaledWidth, scaledHeight
+		};
+		SDL_RenderCopy(renderer, SelectLevel, nullptr, &selectLevelRect);
 	}
 	const int LEVEL_BUTTON_WIDTH = 100;
 	const int LEVEL_BUTTON_HEIGHT = 100;

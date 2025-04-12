@@ -76,17 +76,21 @@ void initSDL() {
 	title = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
+	surface = IMG_Load("TitleLevel.png");
+	SelectLevel = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
 	fallSound = Mix_LoadWAV("Falling.wav");
 	Mix_VolumeChunk(fallSound, MIX_MAX_VOLUME / 2);
 	hitGroundSound = Mix_LoadWAV("fall.wav");
 	Mix_VolumeChunk(hitGroundSound, MIX_MAX_VOLUME / 2);
 	winSound = Mix_LoadWAV("win.wav");
 	mainMusic = Mix_LoadMUS("Main.wav");
-	Mix_VolumeMusic(MIX_MAX_VOLUME / 8);
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
 	playingMusic = Mix_LoadMUS("Playing.wav");
-	Mix_VolumeMusic(MIX_MAX_VOLUME / 10);
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 6);
 	clickSound = Mix_LoadWAV("ClickButton.wav");
-	Mix_VolumeChunk(clickSound, MIX_MAX_VOLUME / 6);
+	Mix_VolumeChunk(clickSound, MIX_MAX_VOLUME / 10);
 	walkSound = Mix_LoadWAV("Running.wav");
 	Mix_VolumeChunk(walkSound, MIX_MAX_VOLUME);
 
@@ -129,6 +133,7 @@ void cleanup() {
 	SDL_DestroyTexture(lockedLevel);
 	SDL_DestroyTexture(popup);
 	SDL_DestroyTexture(title);
+	SDL_DestroyTexture(SelectLevel);
 
 	if (fallSound != nullptr) Mix_FreeChunk(fallSound);
 	if (hitGroundSound != nullptr) Mix_FreeChunk(hitGroundSound);
