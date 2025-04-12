@@ -3,9 +3,10 @@
 #include <string>
 
 void initSDL() {
+	SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO);
 	IMG_Init(IMG_INIT_PNG);
-	SDL_Init(SDL_INIT_VIDEO);
 	TTF_Init();
+
 	Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048);
 	Mix_AllocateChannels(16);
 	window = SDL_CreateWindow("Bridge", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -77,23 +78,22 @@ void initSDL() {
 
 	fallSound = Mix_LoadWAV("Falling.wav");
 	Mix_VolumeChunk(fallSound, MIX_MAX_VOLUME / 2);
-
-	fallSound = Mix_LoadWAV("fall.wav");
+	hitGroundSound = Mix_LoadWAV("fall.wav");
 	Mix_VolumeChunk(hitGroundSound, MIX_MAX_VOLUME / 2);
-
 	winSound = Mix_LoadWAV("win.wav");
-
 	mainMusic = Mix_LoadMUS("Main.wav");
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 8);
-
 	playingMusic = Mix_LoadMUS("Playing.wav");
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 10);
-
 	clickSound = Mix_LoadWAV("ClickButton.wav");
 	Mix_VolumeChunk(clickSound, MIX_MAX_VOLUME / 6);
-
 	walkSound = Mix_LoadWAV("Running.wav");
 	Mix_VolumeChunk(walkSound, MIX_MAX_VOLUME);
+
+	stretchSound = Mix_LoadWAV("StickLength.wav");
+	placeSound = Mix_LoadWAV("StickDown.wav");
+	Mix_VolumeChunk(stretchSound, MIX_MAX_VOLUME / 4);
+	Mix_VolumeChunk(placeSound, MIX_MAX_VOLUME);
 
 	surface = IMG_Load("SoundTurnOn.png");
 	soundOnTexture = SDL_CreateTextureFromSurface(renderer, surface);

@@ -58,9 +58,8 @@ int newLevel = 1;
 int stickTime = 0;
 int stickTimeOk = TIME_STICK;
 int heroPos = 0;
-int selectLevel = 0;
+int selectLevel = 1;
 int scrollSpeed = SCROLL_SPEED;
-int background = 1;
 int currentFrame = 0;
 int backgroundX = 0;
 int walkSoundChannel = -1;
@@ -267,7 +266,6 @@ void LevelMenu() {
 			int indexLevel = 5 * i + j + 1;
 			int levelArrayIndex = indexLevel - 1;
 			if (indexLevel > 20) continue;
-
 			int levelButtonSize = levelButtonHovered[levelArrayIndex] ? static_cast<int>(LEVEL_BUTTON_WIDTH * HOVER_SCALE) : LEVEL_BUTTON_HEIGHT;
 			SDL_Rect levelRect = {
 				startX + j * (LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN) + (LEVEL_BUTTON_WIDTH - levelButtonSize) / 2,
@@ -394,7 +392,6 @@ void renderSoundButton() {
 	SDL_Rect soundButtonRect = {
 		SCREEN_WIDTH - soundButtonSize - 10, 10, soundButtonSize, soundButtonSize
 	};
-
 	if (isSoundOn && soundOnTexture != nullptr) {
 		SDL_RenderCopy(renderer, soundOnTexture, nullptr, &soundButtonRect);
 	}
@@ -698,7 +695,7 @@ void problemGame() {
 		}
 
 		for (auto& plat : platforms) {
-			if (plat.platformsDisappear && plat.platformsDisappear > 0) {
+			if (plat.platformsDisappear && plat.timeDisappear > 0) {
 				if (hero.x + hero.w > plat.x && hero.x < plat.x + plat.w &&
 					hero.y + hero.h == plat.y) {
 					plat.timeDisappear--;
@@ -888,7 +885,6 @@ void setEvent(SDL_Event& event, bool& running) {
 		if (event.type == SDL_QUIT) {
 			running = false;
 		}
-
 		if (event.type == SDL_MOUSEMOTION) {
 			int mouseX = event.motion.x;
 			int mouseY = event.motion.y;
