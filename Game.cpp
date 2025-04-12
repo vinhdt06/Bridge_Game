@@ -36,6 +36,8 @@ bool wonGame = false;
 bool showWin = false;
 bool hasPlayedFallSound = false;
 bool hasPlayedWinSound = false;
+bool hasPlayedHitGroundSound = false;
+bool hasPlayedPlaceSound = false;
 bool isSoundOn = true;
 bool isMainMusicPlaying = false;
 bool isGameMusicPlaying = false;
@@ -60,17 +62,33 @@ int background = 1;
 int currentFrame = 0;
 int backgroundX = 0;
 int walkSoundChannel = -1;
+int stretchSoundChannel = -1;
+int fallSoundChannel = -1;
 
 Mix_Chunk* fallSound = nullptr;
+Mix_Chunk* hitGroundSound = nullptr;
 Mix_Chunk* winSound = nullptr;
 Mix_Music* mainMusic = nullptr;
 Mix_Music* playingMusic = nullptr;
 Mix_Chunk* clickSound = nullptr;
 Mix_Chunk* walkSound = nullptr;
+Mix_Chunk* stretchSound = nullptr;
+Mix_Chunk* placeSound = nullptr;
 
 Uint32 lastFrameTime = 0;
 GameState gameState = MAIN_MENU;
+TTF_Font* font = nullptr;
+SDL_Color textColor = { 255, 255, 255, 255 };
 
+void renderText(const char* text, int x, int y, SDL_Color color) {
+	if (!font) return;
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, text, color);
+	SDL_Texture* textTexture = SDL_CreateTextureFromSurface(renderer, textSurface);
+	SDL_Rect textRect = { x, y, textSurface->w, textSurface->h };
+	SDL_RenderCopy(renderer, textTexture, nullptr, &textRect);
+	SDL_FreeSurface(textSurface);
+	SDL_DestroyTexture(textTexture);
+}
 
 void createPlatforms() {
 	platforms.clear();
@@ -132,104 +150,207 @@ void Levels(int level) {
 void MainMenu() {
 	SDL_RenderCopy(renderer, homeBackground, nullptr, nullptr);
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_Rect titleGame = { SCREEN_WIDTH / 2 - 150, 100, 300, 50 };
-	SDL_RenderFillRect(renderer, &titleGame);
+	if (title != nullptr) {
+		int texWidth, texHeight;
+		SDL_QueryTexture(title, nullptr, nullptr, &texWidth, &texHeight);
 
-	SDL_Rect playButton = { SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 - 10, 100, 40 };
-	if (selectLevel == 0) {
+		float scale = 0.6f;
+		int scaledWidth = static_cast<int>(texWidth * scale);
+		int scaledHeight = static_cast<int>(texHeight * scale);
+
+		SDL_Rect titleRect = {
+			SCREEN_WIDTH / 2 - scaledWidth / 2,
+			10,
+			scaledWidth,
+			scaledHeight
+		};
+		SDL_RenderCopy(renderer, title, nullptr, &titleRect);
+	}
+
+	int playButtonSize = isPlayButtonHovered ? static_cast<int>(BUTTON_SIZE * HOVER_SCALE) : BUTTON_SIZE;
+	SDL_Rect playButtonRect = {
+		SCREEN_WIDTH / 2 - playButtonSize / 2,
+		SCREEN_HEIGHT / 2 - playButtonSize / 2 + 50,
+		playButtonSize,
+		playButtonSize
+	};
+	if (playButton != nullptr) {
+		SDL_RenderCopy(renderer, playButton, nullptr, &playButtonRect);
+	}
+	else {
 		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+		SDL_Rect fallbackRect = { SCREEN_WIDTH / 2 - playButtonSize / 2, SCREEN_HEIGHT / 2 - playButtonSize / 2 + 50, playButtonSize, playButtonSize };
+		SDL_RenderFillRect(renderer, &fallbackRect);
 	}
-	else {
-		SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
-	}
-	SDL_RenderFillRect(renderer, &playButton);
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderDrawRect(renderer, &playButton);
-	SDL_Rect exitButton = { SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 70, 100, 40 };
-	if (selectLevel == 1) {
-		SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
-	}
-	else {
-		SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
-	}
-	SDL_RenderFillRect(renderer, &exitButton);
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderDrawRect(renderer, &exitButton);
 }
 
 void LevelMenu() {
 	SDL_RenderCopy(renderer, levelMenuBackground, nullptr, nullptr);
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_Rect titleGame = { SCREEN_WIDTH / 2 - 100, 50, 200, 50 };
+	SDL_Rect titleGame = { SCREEN_WIDTH / 2 - 150, 50, 300, 60 };
 	SDL_RenderFillRect(renderer, &titleGame);
 
-	int levelWidthAll = 5 * LEVEL_WIDTH_BUTTON + 4 * LEVEL_DIS_BUTTON;
-	int levelHeightAll = 4 * LEVEL_WIDTH_BUTTON + 3 * LEVEL_DIS_BUTTON;
-	int startPosX = (SCREEN_WIDTH - levelWidthAll) / 2;
-	int startPosY = (SCREEN_HEIGHT - levelHeightAll) / 2 + 50;
+	SDL_Surface* textSurface = TTF_RenderText_Solid(font, "Select Level", textColor);
+	if (textSurface) {
+		int textWidth = textSurface->w;
+		int textHeight = textSurface->h;
+		renderText("Select Level", SCREEN_WIDTH / 2 - textWidth / 2, 50 + (60 - textHeight) / 2, textColor);
+		SDL_FreeSurface(textSurface);
+	}
+	else {
+		renderText("Select Level", SCREEN_WIDTH / 2 - 90, 65, textColor);
+	}
+	const int LEVEL_BUTTON_WIDTH = 100;
+	const int LEVEL_BUTTON_HEIGHT = 100;
+	const int LEVEL_BUTTON_MARGIN = 20;
+	int totalLevelsWidth = 5 * LEVEL_BUTTON_WIDTH + 4 * LEVEL_BUTTON_MARGIN;
+	int totalLevelsHeight = 4 * LEVEL_BUTTON_HEIGHT + 3 * LEVEL_BUTTON_MARGIN;
+	int startX = (SCREEN_WIDTH - totalLevelsWidth) / 2;
+	int startY = (SCREEN_HEIGHT - totalLevelsHeight) / 2 + 50;
 
 	for (int i = 0; i < 4; i++) {
-		for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 5; j++) {
 			int indexLevel = 5 * i + j + 1;
-			SDL_Rect levelSelect = {
-				startPosX + j * (LEVEL_WIDTH_BUTTON + LEVEL_DIS_BUTTON),
-				startPosY + i * (LEVEL_HEIGHT_BUTTON + LEVEL_DIS_BUTTON),
-				LEVEL_WIDTH_BUTTON,
-				LEVEL_HEIGHT_BUTTON
+			int levelArrayIndex = indexLevel - 1;
+			if (indexLevel > 20) continue;
+
+			int levelButtonSize = levelButtonHovered[levelArrayIndex] ? static_cast<int>(LEVEL_BUTTON_WIDTH * HOVER_SCALE) : LEVEL_BUTTON_HEIGHT;
+			SDL_Rect levelRect = {
+				startX + j * (LEVEL_BUTTON_WIDTH + LEVEL_BUTTON_MARGIN) + (LEVEL_BUTTON_WIDTH - levelButtonSize) / 2,
+				startY + i * (LEVEL_BUTTON_HEIGHT + LEVEL_BUTTON_MARGIN) + (LEVEL_BUTTON_HEIGHT - levelButtonSize) / 2,
+				levelButtonSize,
+				levelButtonSize
 			};
-			if (completeLevel[indexLevel]) {
-				SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+
+			bool isLocked = (indexLevel > 1 && !completeLevel[indexLevel - 1]);
+			if (isLocked && lockedLevel != nullptr) {
+				SDL_SetTextureAlphaMod(lockedLevel, 255);
+				SDL_RenderCopy(renderer, lockedLevel, nullptr, &levelRect);
+			}
+			else if (levelButton[levelArrayIndex] != nullptr) {
+				SDL_SetTextureAlphaMod(levelButton[levelArrayIndex], completeLevel[indexLevel] ? 255 : 100);
+
+				int texWidth, texHeight;
+				SDL_QueryTexture(levelButton[levelArrayIndex], nullptr, nullptr, &texWidth, &texHeight);
+
+				float scaleX = static_cast<float>(levelRect.w) / texWidth;
+				float scaleY = static_cast<float>(levelRect.h) / texHeight;
+				float scale = std::min(scaleX, scaleY);
+
+				SDL_Rect scaledRect = {
+					levelRect.x + (levelRect.w - static_cast<int>(texWidth * scale)) / 2,
+					levelRect.y + (levelRect.h - static_cast<int>(texHeight * scale)) / 2,
+					static_cast<int>(texWidth * scale),
+					static_cast<int>(texHeight * scale)
+				};
+
+				SDL_RenderCopy(renderer, levelButton[levelArrayIndex], nullptr, &scaledRect);
 			}
 			else {
-				SDL_SetRenderDrawColor(renderer, 200, 200, 200, 255);
-			}
-			SDL_RenderFillRect(renderer, &levelSelect);
-			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-			SDL_RenderDrawRect(renderer, &levelSelect);
-			if (indexLevel == selectLevel) {
-				SDL_SetRenderDrawColor(render, 0, 255, 255, 255);
-				SDL_RenderDrawRect(renderer, &levelSelect);
+				SDL_SetRenderDrawColor(renderer, completeLevel[indexLevel] ? 0 : 200, completeLevel[indexLevel] ? 255 : 200, 0, 255);
+				SDL_RenderFillRect(renderer, &levelRect);
 			}
 		}
 	}
-	SDL_Rect backButton = { 10, 10, 100, 40 };
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-	SDL_RenderFillRect(renderer, &backButton);
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderDrawRect(renderer, &backButton);
 
+	int backButtonSize = isBackButtonHovered ? static_cast<int>(BUTTON_SIZE * HOVER_SCALE) : BUTTON_SIZE;
+	SDL_Rect backButtonRect = {
+		10 + (BUTTON_SIZE - backButtonSize) / 2,
+		10 + (BUTTON_SIZE - backButtonSize) / 2,
+		backButtonSize,
+		backButtonSize
+	};
+	if (exitButton != nullptr) {
+		SDL_RenderCopy(renderer, exitButton, nullptr, &backButtonRect);
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+		SDL_Rect fallbackRect = { 10 + (BUTTON_SIZE - backButtonSize) / 2, 10 + (BUTTON_SIZE - backButtonSize) / 2, backButtonSize, backButtonSize };
+		SDL_RenderFillRect(renderer, &fallbackRect);
+	}
 }
 
 void ifWinGame() {
-	SDL_SetRenderDrawColor(render, 0, 0, 0, 150);
-	SDL_Rect cover = { 0, 0, SCREEN_WIDTH, SCREEN_HEIGHT };
-	SDL_RenderFillRect(renderer, &cover);
+	SDL_Rect popupRect = { SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 2 - 125, 300, 250 };
+	if (popup != nullptr) {
+		SDL_RenderCopy(renderer, popup, nullptr, &popupRect);
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+		SDL_RenderFillRect(renderer, &popupRect);
 
-	SDL_SetRenderDrawColor(render, 255, 255, 255, 255);
-	SDL_Rect appear = { SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 2 - 100, 300, 250 };
-	SDL_RenderFillRect(renderer, &appear);
+		SDL_SetRenderDrawColor(renderer, 139, 69, 19, 255);
+		SDL_Rect brownRect = { SCREEN_WIDTH / 2 - 150, SCREEN_HEIGHT / 2 - 125, 300, 50 };
+		SDL_RenderFillRect(renderer, &brownRect);
+	}
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_Rect textWin = { SCREEN_WIDTH / 2 - 100, SCREEN_HEIGHT / 2 - 100, 300, 250 };
-	SDL_RenderFillRect(renderer, &textWin);
+	renderText("You Won", SCREEN_WIDTH / 2 - 62, SCREEN_HEIGHT / 2 - 75, textColor);
 
-	SDL_Rect replayButton = { SCREEN_WIDTH / 2 - 140, SCREEN_HEIGHT / 2, 100, 40 };
-	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
-	SDL_RenderFillRect(renderer, &replayButton);
+	int replayButtonSize = isReplayButtonHovered ? static_cast<int>(BUTTON_SIZE * HOVER_SCALE) : BUTTON_SIZE;
+	SDL_Rect replayButtonRect = {
+		SCREEN_WIDTH / 2 - 75 - replayButtonSize / 2,
+		SCREEN_HEIGHT / 2 - replayButtonSize / 2,
+		replayButtonSize,
+		replayButtonSize
+	};
+	if (replayButton != nullptr) {
+		SDL_RenderCopy(renderer, replayButton, nullptr, &replayButtonRect);
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+		SDL_Rect fallbackRect = { SCREEN_WIDTH / 2 - 100 - replayButtonSize / 2, SCREEN_HEIGHT / 2 - 20 - replayButtonSize / 2, replayButtonSize, replayButtonSize };
+		SDL_RenderFillRect(renderer, &fallbackRect);
+	}
 
-	SDL_Rect continueButton = { SCREEN_WIDTH / 2 + 40, SCREEN_HEIGHT / 2, 100, 40 };
-	SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
-	SDL_RenderFillRect(render, &continueButton);
+	int continueButtonSize = isContinueButtonHovered ? static_cast<int>(BUTTON_SIZE * HOVER_SCALE) : BUTTON_SIZE;
+	SDL_Rect continueButtonRect = {
+		SCREEN_WIDTH / 2 + 74 - continueButtonSize / 2,
+		SCREEN_HEIGHT / 2 - continueButtonSize / 2,
+		continueButtonSize,
+		continueButtonSize
+	};
+	if (continueButton != nullptr) {
+		SDL_RenderCopy(renderer, continueButton, nullptr, &continueButtonRect);
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, 0, 0, 255, 255);
+		SDL_Rect fallbackRect = { SCREEN_WIDTH / 2 + 100 - continueButtonSize / 2, SCREEN_HEIGHT / 2 - 20 - continueButtonSize / 2, continueButtonSize, continueButtonSize };
+		SDL_RenderFillRect(renderer, &fallbackRect);
+	}
 
-	SDL_Rect backButton = { SCREEN_WIDTH / 2 - 50, SCREEN_HEIGHT / 2 + 60, 100, 40 };
-	SDL_SetRenderDrawColor(renderer,255, 255, 0, 255);
-	SDL_RenderFillRect(renderer, &backButton);
+	int backButtonSize = isBackButtonHovered ? static_cast<int>(BUTTON_SIZE * HOVER_SCALE) : BUTTON_SIZE;
+	SDL_Rect backButtonRect = {
+		SCREEN_WIDTH / 2 - backButtonSize / 2,
+		SCREEN_HEIGHT / 2 + 60 - backButtonSize / 2,
+		backButtonSize,
+		backButtonSize
+	};
+	if (exitButton != nullptr) {
+		SDL_RenderCopy(renderer, exitButton, nullptr, &backButtonRect);
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, 255, 255, 0, 255);
+		SDL_Rect fallbackRect = { SCREEN_WIDTH / 2 - backButtonSize / 2, SCREEN_HEIGHT / 2 + 60 - backButtonSize / 2, backButtonSize, backButtonSize };
+		SDL_RenderFillRect(renderer, &fallbackRect);
+	}
+}
 
-	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
-	SDL_RenderDrawRect(renderer, &replayButton);
-	SDL_RenderDrawRect(renderer, &continueButton);
-	SDL_RenderDrawRect(renderer, &backButton);
+void renderSoundButton() {
+	int soundButtonSize = isSoundButtonHovered ? static_cast<int>(BUTTON_SIZE * HOVER_SCALE) : BUTTON_SIZE;
+	SDL_Rect soundButtonRect = {
+		SCREEN_WIDTH - soundButtonSize - 10, 10, soundButtonSize, soundButtonSize
+	};
+
+	if (isSoundOn && soundOnTexture != nullptr) {
+		SDL_RenderCopy(renderer, soundOnTexture, nullptr, &soundButtonRect);
+	}
+	else if (!isSoundOn && soundOffTexture != nullptr) {
+		SDL_RenderCopy(renderer, soundOffTexture, nullptr, &soundButtonRect);
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, isSoundOn ? 0 : 255, isSoundOn ? 255 : 0, 0, 255);
+		SDL_RenderFillRect(renderer, &soundButtonRect);
+	}
 }
 
 void saveLevels() {

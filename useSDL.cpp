@@ -75,14 +75,19 @@ void initSDL() {
 	title = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
+	fallSound = Mix_LoadWAV("Falling.wav");
+	Mix_VolumeChunk(fallSound, MIX_MAX_VOLUME / 2);
+
 	fallSound = Mix_LoadWAV("fall.wav");
+	Mix_VolumeChunk(hitGroundSound, MIX_MAX_VOLUME / 2);
+
 	winSound = Mix_LoadWAV("win.wav");
 
 	mainMusic = Mix_LoadMUS("Main.wav");
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 8);
 
 	playingMusic = Mix_LoadMUS("Playing.wav");
-	Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
+	Mix_VolumeMusic(MIX_MAX_VOLUME / 10);
 
 	clickSound = Mix_LoadWAV("ClickButton.wav");
 	Mix_VolumeChunk(clickSound, MIX_MAX_VOLUME / 6);
@@ -126,11 +131,14 @@ void cleanup() {
 	SDL_DestroyTexture(title);
 
 	if (fallSound != nullptr) Mix_FreeChunk(fallSound);
+	if (hitGroundSound != nullptr) Mix_FreeChunk(hitGroundSound);
 	if (winSound != nullptr) Mix_FreeChunk(winSound);
 	if (mainMusic != nullptr) Mix_FreeMusic(mainMusic);
 	if (playingMusic != nullptr) Mix_FreeMusic(playingMusic);
 	if (clickSound != nullptr) Mix_FreeChunk(clickSound);
 	if (walkSound != nullptr) Mix_FreeChunk(walkSound);
+	if (stretchSound != nullptr) Mix_FreeChunk(stretchSound);
+	if (placeSound != nullptr) Mix_FreeChunk(placeSound);
 	Mix_CloseAudio();
 
 	SDL_DestroyTexture(soundOnTexture);

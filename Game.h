@@ -60,6 +60,8 @@ extern bool wonGame;
 extern bool showWin;
 extern bool hasPlayedFallSound;
 extern bool hasPlayedWinSound;
+extern bool hasPlayedHitGroundSound;
+extern bool hasPlayedPlaceSound;
 extern bool isSoundOn;
 extern bool isMainMusicPlaying;
 extern bool isGameMusicPlaying;
@@ -84,13 +86,18 @@ extern int background;
 extern int currentFrame;
 extern int backgroundX;
 extern int walkSoundChannel;
+extern int stretchSoundChannel;
+extern int fallSoundChannel;
 
-extern Mix_Chunk* fallSound = nullptr;
-extern Mix_Chunk* winSound = nullptr;
-extern Mix_Music* mainMusic = nullptr;
-extern Mix_Music* playingMusic = nullptr;
-extern Mix_Chunk* clickSound = nullptr;
-extern Mix_Chunk* walkSound = nullptr;
+extern Mix_Chunk* fallSound;
+extern Mix_Chunk* hitGroundSound;
+extern Mix_Chunk* winSound;
+extern Mix_Music* mainMusic;
+extern Mix_Music* playingMusic;
+extern Mix_Chunk* clickSound;
+extern Mix_Chunk* walkSound;
+extern Mix_Chunk* stretchSound;
+extern Mix_Chunk* placeSound;
 
 enum gameState {
 	MAIN_MENU,
@@ -103,14 +110,17 @@ enum gameState {
 
 extern Uint32 lastFrameTime;
 extern gameState gameState;
-extern TTF_Font* font = nullptr;
-extern SDL_Color textColor = { 255, 255, 255, 255 };
+extern TTF_Font* font;
+extern SDL_Color textColor;
 
+void initSDL();
+void renderText(const char* text, int x, int y, SDL_Color color);
 void createPlatforms();
 void Levels(int level);
 void MainMenu();
 void LevelMenu();
 void ifWinGame();
+void renderSoundButton();
 void saveLevels();
 void openLevels();
 int indexPlatforms();
@@ -118,3 +128,4 @@ void problemGame();
 void faceGame();
 void setEvent(SDL_Event& event, bool& running);
 void resetGame();
+void cleanup();
