@@ -16,6 +16,7 @@ SDL_Texture* lockedLevel = nullptr;
 SDL_Texture* popup = nullptr;
 SDL_Texture* title = nullptr;
 SDL_Texture* SelectLevel = nullptr;
+SDL_Texture* platform = nullptr;
 SDL_Texture* idleTextures[5] = { nullptr };
 SDL_Texture* walkTextures[6] = { nullptr };
 std::vector<Platform> platforms;
@@ -768,19 +769,20 @@ void faceGame() {
 
 			for (const auto& plat : platforms) {
 				if (plat.w > 0 && plat.h > 0) {
+					SDL_Rect rect = { plat.x + shakeX, plat.y + shakeY, plat.w, plat.h };
 					if (gameState == PLAYING && plat.platformsDisappear && plat.timeDisappear <= 70) {
 						if (rand() % 2 == 0) {
-							SDL_SetRenderDrawColor(renderer, 128, 128, 128, 255);
+							SDL_SetTextureAlphaMod(platform, 128);
 						}
 						else {
-							SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+							SDL_SetTextureAlphaMod(platform, 255);
 						}
+						SDL_RenderCopy(renderer, platform, nullptr, &rect);
+						SDL_SetTextureAlphaMod(platform, 255);
 					}
 					else {
-						SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
+						SDL_RenderCopy(renderer, platform, nullptr, &rect);
 					}
-					SDL_Rect rect = { plat.x + shakeX, plat.y + shakeY, plat.w, plat.h };
-					SDL_RenderFillRect(renderer, &rect);
 				}
 			}
 

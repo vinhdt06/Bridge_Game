@@ -80,6 +80,10 @@ void initSDL() {
 	SelectLevel = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
+	surface = IMG_Load("Platform.png");
+	platform = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
 	fallSound = Mix_LoadWAV("Falling.wav");
 	Mix_VolumeChunk(fallSound, MIX_MAX_VOLUME / 2);
 	hitGroundSound = Mix_LoadWAV("fall.wav");

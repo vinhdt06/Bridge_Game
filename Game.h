@@ -38,6 +38,7 @@ extern SDL_Texture* lockedLevel;
 extern SDL_Texture* popup;
 extern SDL_Texture* title;
 extern SDL_Texture* SelectLevel;
+extern SDL_Texture* platform;
 extern SDL_Texture* idleTextures[5];
 extern SDL_Texture* walkTextures[6];
 extern std::vector<Platform> platforms;
