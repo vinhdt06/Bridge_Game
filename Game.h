@@ -89,6 +89,7 @@ extern int backgroundX;
 extern int walkSoundChannel;
 extern int stretchSoundChannel;
 extern int fallSoundChannel;
+extern int winSoundChannel;
 extern int shakeDuration;
 extern int shakeMagnitude;
 extern int shakeX;

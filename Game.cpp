@@ -67,6 +67,7 @@ int backgroundX = 0;
 int walkSoundChannel = -1;
 int stretchSoundChannel = -1;
 int fallSoundChannel = -1;
+int winSoundChannel = -1;
 int shakeDuration = 0;
 int shakeMagnitude = 3;
 int shakeX = 0;
@@ -191,6 +192,10 @@ void Levels(int level) {
 	if (fallSoundChannel != -1) {
 		Mix_HaltChannel(fallSoundChannel);
 		fallSoundChannel = -1;
+	}
+	if (winSoundChannel != -1) {
+		Mix_HaltChannel(winSoundChannel);
+		winSoundChannel = -1;
 	}
 	if (isMainMusicPlaying) {
 		Mix_HaltMusic();
@@ -412,7 +417,7 @@ void saveLevels() {
 }
 
 void openLevels() {
-	std::ifstream file("level_complation.dat", std::ios::binary);
+	std::ifstream file("level_completion.dat", std::ios::binary);
 	if (file.is_open()) {
 		file.read(reinterpret_cast<char*>(completeLevel), sizeof(completeLevel));
 		file.close();
@@ -548,7 +553,7 @@ void problemGame() {
 							isGameMusicPlaying = false;
 						}
 						if (isSoundOn && !hasPlayedWinSound && winSound != nullptr) {
-							Mix_PlayChannel(-1, winSound, 0);
+							winSoundChannel = Mix_PlayChannel(-1, winSound, 0);
 							hasPlayedWinSound = true;
 						}
 					}
@@ -651,8 +656,8 @@ void problemGame() {
 				gameState = LOST;
 				if (!isShaking) {
 					isShaking = true;
-					shakeDuration = 30;
-					shakeMagnitude = 3;
+					shakeDuration = 36;
+					shakeMagnitude = 5;
 				}
 				if (isGameMusicPlaying) {
 					Mix_HaltMusic();
@@ -1225,6 +1230,11 @@ void setEvent(SDL_Event& event, bool& running) {
 						Mix_PlayChannel(-1, clickSound, 0);
 					}
 					gameState = LEVEL_MENU;
+					if (winSoundChannel != -1) {
+						Mix_HaltChannel(winSoundChannel);
+						winSoundChannel = -1;
+					}
+
 					if (walkSoundChannel != -1) {
 						Mix_HaltChannel(walkSoundChannel);
 						walkSoundChannel = -1;
@@ -1241,6 +1251,8 @@ void setEvent(SDL_Event& event, bool& running) {
 						Mix_PlayMusic(mainMusic, -1);
 						isMainMusicPlaying = true;
 					}
+					showWin = false;
+					hasPlayedWinSound = false;
 				}
 			}
 		}
@@ -1295,4 +1307,9 @@ void setEvent(SDL_Event& event, bool& running) {
 
 void resetGame() {
 	Levels(newLevel);
+	if (winSoundChannel != -1) {
+		Mix_HaltChannel(winSoundChannel);
+		winSoundChannel = -1;
+	}
+	hasPlayedWinSound = false;
 }
