@@ -138,6 +138,7 @@ void cleanup() {
 	SDL_DestroyTexture(popup);
 	SDL_DestroyTexture(title);
 	SDL_DestroyTexture(SelectLevel);
+	SDL_DestroyTexture(platform);
 
 	if (fallSound != nullptr) Mix_FreeChunk(fallSound);
 	if (hitGroundSound != nullptr) Mix_FreeChunk(hitGroundSound);
