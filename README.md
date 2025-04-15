@@ -36,7 +36,8 @@
     +) Popup: https://pngtree.com/freepng/popup-wooden-game_6839509.html  
     +) Main + MenuLevel: https://www.wallpaperflare.com/deer-and-trees-deer-in-forest-during-sunset-drawing-animals-wallpaper-cs  
     +) Playing: https://e0.pxfuel.com/wallpapers/468/274/desktop-wallpaper-eagle-landscape-mountains-minimalist-artist-background-and.jpg    
-    +) Title + TitleLevel: Vẽ bởi AI.   
+    +) Title + TitleLevel: Vẽ bởi AI.  
+    +) Platform: Vẽ bởi AI.  
   - Character: https://www.shutterstock.com/vi/image-vector/ninja-game-sprites-suitable-side-scrolling-496110337  
   - ButtonGame:  
     +) Các ô level: Vẽ bởi AI  
