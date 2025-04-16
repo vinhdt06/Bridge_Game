@@ -7,7 +7,8 @@
 
   Game dựa trên ý tưởng từ game Monkey Stick: https://youtu.be/Op2xQs5VFmo?si=TQx7v1nbStfXMApl
 ### II. THAY ĐỔI MỚI DỰA TRÊN Ý TƯỞNG CŨ
-  - Thêm tính năng level, các nút: _Back_, _Continue_.   
+  - Thêm tính năng level, các nút: _Back_, _Continue_.
+  - Nhân vật có thể có thêm mạng sống hồi sinh bằng trái tim trên nền tảng, hiển thị số mạng sống trên màn hình.   
   - Tăng độ khó cho game bằng cách thêm 2 loại nền tảng mới: _Nền tảng biến mất_; _Nền tảng di chuyển_; có thể có sự kết hợp của cả 2 xuất hiện ở từng level theo xác suất.  
   - Cập nhật số lượng nền tảng, tỉ lệ xuất hiện 2 loại nền tảng mới tăng lên theo từng level.   
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua, mở khoá level mới khi hoàn thành level hiện tại.  
@@ -22,7 +23,8 @@
   [Picture](#)
   - Ở phần lựa chọn level, người chơi bắt đầu từ level đầu tiên, sau khi thắng 1 level sẽ được lưu lại kết quả: [Picture](#)
   - Trong 1 level chơi, nhiệm vụ của người chơi là kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua: [Picture](#)
-  - Gậy có thuộc tính đặc biệt: Khi bắc cầu qua nền tảng di chuyển sẽ làm cho nền tảng dừng lại, giúp nhân vật dễ di chuyển hơn: [Picture](#)  
+  - Gậy có thuộc tính đặc biệt: Khi bắc cầu qua nền tảng di chuyển sẽ làm cho nền tảng dừng lại, giúp nhân vật dễ di chuyển hơn: [Picture](#)
+  - Người chơi có thể tăng số mạng sống cho nhân vật hồi sinh bằng cách kéo gậy chạm đúng trái tim giữa nền tảng, nếu lệch sẽ không được: [Picture](#)   
   - Nền tảng sẽ gồm 3 loại:  
     1. _Nền tảng bình thường_: nền tảng dễ chơi nhất, người chơi chỉ việc kéo đủ chiều dài gậy để đi qua mà không gặp bất kì khó khăn nào: [Picture](#)
     2. _Nền tảng biến mất_: nền tảng này sẽ giới hạn thời gian đứng của nhân vật, nếu không di chuyển nhanh nhân vật sẽ bị rơi xuống khi nền tảng biến mất: [Picture](#)
