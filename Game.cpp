@@ -574,14 +574,6 @@ void problemGame() {
 			stick.w = STICK_WIDTH;
 			stickAngle = 0;
 			currentPlatformIndex = indexPlatforms();
-			if (currentPlatformIndex != -1) {
-				if (platforms[currentPlatformIndex].velocity != 0) {
-					platforms[currentPlatformIndex].velocity = 0;
-					hero.x = platforms[currentPlatformIndex].x + (platforms[currentPlatformIndex].w - hero.w) / 2;
-				}
-				stick.x = platforms[currentPlatformIndex].x + platforms[currentPlatformIndex].w - STICK_WIDTH;
-				stick.y = platforms[currentPlatformIndex].y;
-			}
 			if (platforms.size() < platformsWin) {
 				scrollScreen = true;
 			}
