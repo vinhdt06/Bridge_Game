@@ -103,36 +103,40 @@ void createPlatforms() {
 	int randomPlatform = PLATFORM_WIDTH + rand() % 10;
 	platforms.push_back({ 50, PLATFORM_POS, randomPlatform, PLATFORM_HEIGHT });
 	platforms.back().firstPos = platforms.back().x;
+	int disappearRate = 20 + (newLevel - 1) * 10;
+	int moveRate = 20 + (newLevel - 1) * 10;
+	if (disappearRate > 70) disappearRate = 70;
+	if (moveRate > 80) moveRate = 80;
+
 	for (int i = 1; i < 4; i++) {
 		randomPlatform = PLATFORM_WIDTH + rand() % 10;
-		int newPos = platforms.back().x + platforms.back().w + (rand() % (PLAT_DIS_MAX - PLAT_DIS_MIN) + PLAT_DIS_MIN);
-		platforms.push_back({ newPos, PLATFORM_POS, randomPlatform, PLATFORM_HEIGHT });
-		platforms.back().firstPos = newPos;
-	}
-	stick = { platforms[0].x + platforms[0].w - STICK_WIDTH, platforms[0].y, STICK_WIDTH, 0 };
-	if (platforms.size() > 2) {
-		int indexDisappear = rand() % (platforms.size() - 1) + 1;
-		platforms[indexDisappear].platformsDisappear = true;
-		platforms[indexDisappear].timeDisappear = 120;
-		int indexMove;
-		do {
-			indexMove = rand() % (platforms.size() - 1) + 1;
-		} while (indexMove == indexDisappear);
-		platforms[indexMove].velocity = (rand() % 5 - 2) * 0.5f;
-		platforms[indexMove].platformsMove = rand() % 50 + 20;
-		for (size_t i = 1; i < platforms.size(); i++) {
-			if (i != indexDisappear && i != indexMove) {
-				if (rand() % 100 < 30) {
-					platforms[i].platformsDisappear = true;
-					platforms[i].timeDisappear = 120;
-				}
-				if (rand() % 100 < 40) {
-					platforms[i].velocity = (rand() % 5 - 2) * 0.5f;
-					platforms[i].platformsMove = rand() % 50 + 20;
-				}
+		int xPos = platforms.back().x + platforms.back().w + (rand() % (PLAT_DIS_MAX - PLAT_DIS_MIN) + PLAT_DIS_MIN);
+		platforms.push_back({ xPos, PLATFORM_POS, randomPlatform, PLATFORM_HEIGHT });
+		platforms.back().firstPos = xPos;
+		if (i >= 2) {
+			if (rand() % 100 < disappearRate) {
+				platforms.back().platformsDisappear = true;
+				platforms.back().timeDisappear = 120;
+			}
+			if (rand() % 100 < moveRate) {
+				platforms.back().velocity = (rand() % 5 - 2) * 0.5f;
+				platforms.back().platformsMove = rand() % 50 + 20;
 			}
 		}
 	}
+	bool hasNonDisappearing = false;
+	for (const auto& plat : platforms) {
+		if (!plat.platformsDisappear) {
+			hasNonDisappearing = true;
+			break;
+		}
+	}
+	if (!hasNonDisappearing && platforms.size() > 1) {
+		int safeIndex = 1 + rand() % (platforms.size() - 1);
+		platforms[safeIndex].platformsDisappear = false;
+		platforms[safeIndex].timeDisappear = 0;
+	}
+	stick = { platforms[0].x + platforms[0].w - STICK_WIDTH, platforms[0].y, STICK_WIDTH, 0 };
 }
 
 void Levels(int level) {
@@ -470,7 +474,7 @@ void problemGame() {
 			stretchSoundChannel = -1;
 		}
 		else if (stickTurn && currentPlatformIndex != -1) {
-			stickAngle += 5;
+			stickAngle += 9;
 			if (stickAngle >= 90) {
 				stickAngle = 90;
 				stickTurn = false;
@@ -489,6 +493,10 @@ void problemGame() {
 				int nextPlatformIndex = currentPlatformIndex + 1;
 				if (nextPlatformIndex < platforms.size()) {
 					if (stick.x + stick.w >= platforms[nextPlatformIndex].x && stick.x + stick.w <= platforms[nextPlatformIndex].x + platforms[nextPlatformIndex].w) {
+						if (platforms[nextPlatformIndex].velocity != 0) {
+							platforms[nextPlatformIndex].velocity = 0;
+							platforms[nextPlatformIndex].platformsMove = 0;
+						}
 						heroWalk = true;
 						heroAfterWalk = false;
 						heroPos = platforms[nextPlatformIndex].x + (platforms[nextPlatformIndex].w - hero.w) / 2;
