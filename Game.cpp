@@ -17,6 +17,7 @@ SDL_Texture* popup = nullptr;
 SDL_Texture* title = nullptr;
 SDL_Texture* SelectLevel = nullptr;
 SDL_Texture* platform = nullptr;
+SDL_Texture* Lives = nullptr;
 SDL_Texture* idleTextures[5] = { nullptr };
 SDL_Texture* walkTextures[6] = { nullptr };
 std::vector<Platform> platforms;
@@ -72,6 +73,8 @@ int shakeDuration = 0;
 int shakeMagnitude = 3;
 int shakeX = 0;
 int shakeY = 0;
+int lives = 1;
+int lastPlatformIndex = -1;
 
 Mix_Chunk* fallSound = nullptr;
 Mix_Chunk* hitGroundSound = nullptr;
@@ -124,6 +127,17 @@ void createPlatforms() {
 			}
 		}
 	}
+	if (platforms.size() > 1) {
+		int markPlatformIndex = 1 + rand() % (platforms.size() - 1);
+		if (rand() % 100 < 20) {
+			platforms[markPlatformIndex].hasMark = true;
+			int markWidth = 17;
+			int markHeight = 17;
+			int markX = platforms[markPlatformIndex].x + (platforms[markPlatformIndex].w - markWidth) / 2;
+			int markY = platforms[markPlatformIndex].y - markHeight;
+			platforms[markPlatformIndex].markRect = { markX, markY, markWidth, markHeight };
+		}
+	}
 	bool hasNonDisappearing = false;
 	for (const auto& plat : platforms) {
 		if (!plat.platformsDisappear) {
@@ -137,6 +151,7 @@ void createPlatforms() {
 		platforms[safeIndex].timeDisappear = 0;
 	}
 	stick = { platforms[0].x + platforms[0].w - STICK_WIDTH, platforms[0].y, STICK_WIDTH, 0 };
+	lastPlatformIndex = 0;
 }
 
 void Levels(int level) {
@@ -161,6 +176,7 @@ void Levels(int level) {
 	currentFrame = 0;
 	lastFrameTime = SDL_GetTicks();
 	backgroundX = 0;
+	lives = 1;
 
 	isShaking = false;
 	shakeDuration = 0;
@@ -481,7 +497,7 @@ void problemGame() {
 				stickDown = true;
 				stick.w = stick.h;
 				stick.h = STICK_WIDTH;
-				stick.y = platforms[currentPlatformIndex].y;
+				stick.y = platforms[currentPlatformIndex].y - stick.h;
 				stick.x = platforms[currentPlatformIndex].x + platforms[currentPlatformIndex].w - STICK_WIDTH;
 				stickTime = stickTimeOk;
 
@@ -492,6 +508,15 @@ void problemGame() {
 
 				int nextPlatformIndex = currentPlatformIndex + 1;
 				if (nextPlatformIndex < platforms.size()) {
+					if (platforms[nextPlatformIndex].hasMark) {
+						platforms[nextPlatformIndex].markRect.x = platforms[nextPlatformIndex].x + (platforms[nextPlatformIndex].w - platforms[nextPlatformIndex].markRect.w) / 2;
+					}
+					if (platforms[nextPlatformIndex].hasMark &&
+						stick.x + stick.w >= platforms[nextPlatformIndex].markRect.x &&
+						stick.x + stick.w <= platforms[nextPlatformIndex].markRect.x + platforms[nextPlatformIndex].markRect.w) {
+						lives++;
+						platforms[nextPlatformIndex].hasMark = false;
+					}
 					if (stick.x + stick.w >= platforms[nextPlatformIndex].x && stick.x + stick.w <= platforms[nextPlatformIndex].x + platforms[nextPlatformIndex].w) {
 						if (platforms[nextPlatformIndex].velocity != 0) {
 							platforms[nextPlatformIndex].velocity = 0;
@@ -583,6 +608,9 @@ void problemGame() {
 			for (auto& plat : platforms) {
 				plat.x -= scrollSpeed;
 				plat.firstPos -= scrollSpeed;
+				if (plat.hasMark) {
+					plat.markRect.x -= scrollSpeed;
+				}
 			}
 			hero.x -= scrollSpeed;
 			backgroundX -= static_cast<int>(scrollSpeed * BACKGROUND_SCROLL);
@@ -629,7 +657,14 @@ void problemGame() {
 						newPlatform.platformsMove = rand() % 50 + 20;
 					}
 				}
-
+				if (rand() % 100 < 20) {
+					newPlatform.hasMark = true;
+					int markWidth = 17;
+					int markHeight = 17;
+					int markX = newPlatform.x + (newPlatform.w - markWidth) / 2;
+					int markY = newPlatform.y - markHeight;
+					newPlatform.markRect = { markX, markY, markWidth, markHeight };
+				}
 				platforms.push_back(newPlatform);
 				scrollScreen = false;
 				if (platforms.size() >= 2) {
@@ -649,19 +684,77 @@ void problemGame() {
 					Mix_HaltChannel(fallSoundChannel);
 					fallSoundChannel = -1;
 				}
-				if (isSoundOn && !hasPlayedHitGroundSound && hitGroundSound != nullptr) {
-					Mix_PlayChannel(-1, hitGroundSound, 0);
-					hasPlayedHitGroundSound = true;
+				if (lives > 1 && lastPlatformIndex >= 0 && lastPlatformIndex < platforms.size() && platforms[lastPlatformIndex].w > 0) {
+					lives--;
+					hero.x = platforms[lastPlatformIndex].x + (platforms[lastPlatformIndex].w - hero.w) / 2;
+					hero.y = platforms[lastPlatformIndex].y - hero.h;
+
+					platforms[lastPlatformIndex].velocity = 0;
+					platforms[lastPlatformIndex].platformsMove = 0;
+					platforms[lastPlatformIndex].platformsDisappear = false;
+					platforms[lastPlatformIndex].timeDisappear = 0;
+					stick = { platforms[lastPlatformIndex].x + platforms[lastPlatformIndex].w - STICK_WIDTH, platforms[lastPlatformIndex].y, STICK_WIDTH, 0 };
+					stickAngle = 0;
+					heroFall = false;
+					stickLength = false;
+					stickTurn = false;
+					heroWalk = false;
+					scrollScreen = false;
+					stickDown = false;
+					heroAfterWalk = false;
+					camePlatforms = false;
+					hasPlayedFallSound = false;
+					hasPlayedHitGroundSound = false;
+					hasPlayedPlaceSound = false;
+					isShaking = false;
+					shakeX = 0;
+					shakeY = 0;
+					while (platforms.size() < 2) {
+						Platform newPlatform;
+						newPlatform.x = platforms.back().x + platforms.back().w + (rand() % (PLAT_DIS_MAX - PLAT_DIS_MIN) + PLAT_DIS_MIN);
+						newPlatform.y = PLATFORM_POS;
+						newPlatform.w = PLATFORM_WIDTH + rand() % 10;
+						newPlatform.h = PLATFORM_HEIGHT;
+						newPlatform.firstPos = newPlatform.x;
+						newPlatform.platformsDisappear = false;
+						newPlatform.timeDisappear = 0;
+						newPlatform.velocity = 0;
+						newPlatform.platformsMove = 0;
+						platforms.push_back(newPlatform);
+					}
+					if (walkSoundChannel != -1) {
+						Mix_HaltChannel(walkSoundChannel);
+						walkSoundChannel = -1;
+					}
+					if (stretchSoundChannel != -1) {
+						Mix_HaltChannel(stretchSoundChannel);
+						stretchSoundChannel = -1;
+					}
 				}
-				gameState = LOST;
-				if (!isShaking) {
-					isShaking = true;
-					shakeDuration = 36;
-					shakeMagnitude = 5;
-				}
-				if (isGameMusicPlaying) {
-					Mix_HaltMusic();
-					isGameMusicPlaying = false;
+				else {
+					if (isSoundOn && !hasPlayedHitGroundSound && hitGroundSound != nullptr) {
+						Mix_PlayChannel(-1, hitGroundSound, 0);
+						hasPlayedHitGroundSound = true;
+					}
+
+					gameState = LOST;
+					stickLength = false;
+					stickTurn = false;
+					heroWalk = false;
+					heroFall = false;
+					stickDown = false;
+					scrollScreen = false;
+					heroAfterWalk = false;
+					camePlatforms = false;
+					if (!isShaking) {
+						isShaking = true;
+						shakeDuration = 30;
+						shakeMagnitude = 3;
+					}
+					if (isGameMusicPlaying) {
+						Mix_HaltMusic();
+						isGameMusicPlaying = false;
+					}
 				}
 			}
 		}
@@ -670,7 +763,6 @@ void problemGame() {
 			Mix_HaltChannel(walkSoundChannel);
 			walkSoundChannel = -1;
 		}
-
 		if (stickDown && stickTime > 0) {
 			stickTime--;
 			if (stickTime == 0) {
@@ -682,6 +774,9 @@ void problemGame() {
 			auto& plat = platforms[i];
 			if (plat.w > 0 && plat.h > 0 && plat.velocity != 0) {
 				plat.x += plat.velocity;
+				if (plat.hasMark) {
+					plat.markRect.x = plat.x + (plat.w - plat.markRect.w) / 2;
+				}
 				if (plat.x < plat.firstPos - plat.platformsMove) {
 					plat.x = plat.firstPos - plat.platformsMove;
 					plat.velocity = -plat.velocity;
@@ -726,6 +821,10 @@ void problemGame() {
 		}
 		if (!onPlatform && !heroWalk && !stickTurn && !stickLength && !heroFall) {
 			heroFall = true;
+		}
+		if (lastPlatformIndex >= 0 && lastPlatformIndex < platforms.size()) {
+			platforms[lastPlatformIndex].velocity = 0;
+			platforms[lastPlatformIndex].platformsMove = 0;
 		}
 	}
 
@@ -788,6 +887,10 @@ void faceGame() {
 					else {
 						SDL_RenderCopy(renderer, platform, nullptr, &rect);
 					}
+					if (plat.hasMark && Lives != nullptr) {
+						SDL_Rect markDest = { plat.markRect.x + shakeX, plat.markRect.y + shakeY, plat.markRect.w, plat.markRect.h };
+						SDL_RenderCopy(renderer, Lives, nullptr, &markDest);
+					}
 				}
 			}
 
@@ -827,6 +930,11 @@ void faceGame() {
 					SDL_Rect fallbackRect = { 10 + shakeX + (BUTTON_SIZE - backButtonSize) / 2, 10 + shakeY + (BUTTON_SIZE - backButtonSize) / 2, backButtonSize, backButtonSize };
 					SDL_RenderFillRect(renderer, &fallbackRect);
 				}
+				std::string livesText = "Lives: " + std::to_string(lives);
+				SDL_Surface* textSurface = TTF_RenderText_Solid(font, livesText.c_str(), textColor);
+				int textWidth = textSurface ? textSurface->w : 100;
+				SDL_FreeSurface(textSurface);
+				renderText(livesText.c_str(), (SCREEN_WIDTH - textWidth) / 2 + shakeX, 10 + shakeY, textColor);
 			}
 		}
 		if (gameState == WON) {
@@ -1205,6 +1313,7 @@ void setEvent(SDL_Event& event, bool& running) {
 						Mix_PlayChannel(-1, clickSound, 0);
 					}
 					resetGame();
+					lives = 1;
 					gameState = PLAYING;
 					showWin = false;
 				}
@@ -1218,6 +1327,7 @@ void setEvent(SDL_Event& event, bool& running) {
 					}
 					newLevel++;
 					resetGame();
+					lives = 1;
 					gameState = PLAYING;
 					showWin = false;
 				}
@@ -1269,6 +1379,7 @@ void setEvent(SDL_Event& event, bool& running) {
 						Mix_PlayChannel(-1, clickSound, 0);
 					}
 					resetGame();
+					lives = 1;
 					gameState = PLAYING;
 				}
 

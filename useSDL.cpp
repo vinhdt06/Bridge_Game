@@ -84,6 +84,10 @@ void initSDL() {
 	platform = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
+	surface = IMG_Load("Lives.png");
+	Lives = SDL_CreateTextureFromSurface(renderer, surface);
+	SDL_FreeSurface(surface);
+
 	fallSound = Mix_LoadWAV("Falling.wav");
 	Mix_VolumeChunk(fallSound, MIX_MAX_VOLUME / 2);
 	hitGroundSound = Mix_LoadWAV("fall.wav");
@@ -139,6 +143,7 @@ void cleanup() {
 	SDL_DestroyTexture(title);
 	SDL_DestroyTexture(SelectLevel);
 	SDL_DestroyTexture(platform);
+	SDL_DestroyTexture(Lives);
 
 	if (fallSound != nullptr) Mix_FreeChunk(fallSound);
 	if (hitGroundSound != nullptr) Mix_FreeChunk(hitGroundSound);
