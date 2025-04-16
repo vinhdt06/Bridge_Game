@@ -9,7 +9,7 @@
 ### II. THAY ĐỔI MỚI DỰA TRÊN Ý TƯỞNG CŨ
   - Thêm tính năng level, các nút: _Back_, _Continue_.   
   - Tăng độ khó cho game bằng cách thêm 2 loại nền tảng mới: _Nền tảng biến mất_; _Nền tảng di chuyển_; có thể có sự kết hợp của cả 2 xuất hiện ở từng level theo xác suất.  
-  - Cập nhật số lượng nền tảng, tỉ lệ xuất hiện các loại nền tảng tăng lên theo từng level.   
+  - Cập nhật số lượng nền tảng, tỉ lệ xuất hiện 2 loại nền tảng mới tăng lên theo từng level.   
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua, mở khoá level mới khi hoàn thành level hiện tại.  
   - Cập nhật lại đồ hoạ, âm thanh mới cho game.
 ### III. CÁCH CÀI ĐẶT GAME
