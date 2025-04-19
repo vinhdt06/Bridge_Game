@@ -108,7 +108,7 @@ void createPlatforms() {
 	platforms.back().firstPos = platforms.back().x;
 	int disappearRate = 20 + (newLevel - 1) * 10;
 	int moveRate = 20 + (newLevel - 1) * 10;
-	if (disappearRate > 70) disappearRate = 70;
+	if (disappearRate > 80) disappearRate = 80;
 	if (moveRate > 80) moveRate = 80;
 
 	for (int i = 1; i < 4; i++) {
@@ -155,7 +155,7 @@ void createPlatforms() {
 }
 
 void Levels(int level) {
-	platformsWin = WIN_PLATFORMS + (level - 1) * 2;
+	platformsWin = WIN_PLATFORMS + (level - 1) * 3;
 	createPlatforms();
 	hero.x = platforms[0].x + (platforms[0].w - hero.w) / 2;
 	hero.y = platforms[0].y - hero.h;
