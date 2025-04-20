@@ -19,21 +19,56 @@
 
 ### IV. HƯỠNG DẪN CHƠI GAME
   Người chơi phải chơi lần lượt từng level, nếu chưa qua level trước thì không thể mở khoá level sau. Chỉ cần vượt qua hết các level tức là đã dành chiến thắng và Hero cứu được Crush. Cụ thể:
-  - Sau khi vào game và kích vào _Play Now_, sẽ dẫn chúng ta đến phần chọn level chơi:
-  [Picture](#)
-  - Ở phần lựa chọn level, người chơi bắt đầu từ level đầu tiên, sau khi thắng 1 level sẽ được lưu lại kết quả: [Picture](#)
-  - Trong 1 level chơi, nhiệm vụ của người chơi là kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua: [Picture](#)
-  - Gậy có thuộc tính đặc biệt: Khi bắc cầu qua nền tảng di chuyển sẽ làm cho nền tảng dừng lại, giúp nhân vật dễ di chuyển hơn: [Picture](#)
-  - Người chơi có thể tăng số mạng sống cho nhân vật hồi sinh bằng cách kéo gậy chạm đúng trái tim giữa nền tảng, nếu lệch sẽ không được: [Picture](#)   
+  - Sau khi vào game và kích vào _Play Now_, sẽ dẫn chúng ta đến phần chọn level chơi:  
+      
+    ![Screenshot 2025-04-20 231621](https://github.com/user-attachments/assets/4babb63a-acc4-4c23-919e-19bfc66f33a3)  
+    - Main Menu Game với nút _Play Now_
+   
+         
+    ![Screenshot 2025-04-20 232152](https://github.com/user-attachments/assets/3ef97e40-cb62-4cf2-a0fa-64f07e862bc8)  
+    - Phần lựa chọn level  
+    
+  - Ở phần lựa chọn level, người chơi bắt đầu từ level đầu tiên, sau khi thắng 1 level sẽ được lưu lại kết quả:
+
+    ![Screenshot 2025-04-20 232645](https://github.com/user-attachments/assets/0ad9c4d8-234e-423b-b0aa-88a9bdfef30f)
+    - Ở hình ảnh level 1 đã vượt qua sẽ được tô đậm, sau đó level 2 được mở (tô mờ) tiếp theo để chơi, các level khác vẫn trong trạng thái bị khoá.  
+  
+  - Trong 1 level chơi, nhiệm vụ của người chơi là kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua:
+
+      ![Screenshot 2025-04-20 233807](https://github.com/user-attachments/assets/549b1d7d-0fe4-48b7-9cfc-54951ca0b759)  
+  
+  - Gậy có thuộc tính đặc biệt: Khi bắc cầu qua nền tảng di chuyển sẽ làm cho nền tảng dừng lại, giúp nhân vật dễ di chuyển hơn.  
+  - Người chơi có thể tăng số mạng sống cho nhân vật hồi sinh bằng cách kéo gậy chạm đúng trái tim giữa nền tảng, nếu lệch sẽ không được:
+
+      ![Screenshot 2025-04-20 235046](https://github.com/user-attachments/assets/2b54637e-fe0b-40d9-820e-4317646dae57)  
+
   - Nền tảng sẽ gồm 3 loại:  
-    1. _Nền tảng bình thường_: nền tảng dễ chơi nhất, người chơi chỉ việc kéo đủ chiều dài gậy để đi qua mà không gặp bất kì khó khăn nào: [Picture](#)
-    2. _Nền tảng biến mất_: nền tảng này sẽ giới hạn thời gian đứng của nhân vật, nếu không di chuyển nhanh nhân vật sẽ bị rơi xuống khi nền tảng biến mất: [Picture](#)
-    3. _Nền tảng di chuyển_: nền tảng này dịch chuyển quanh vị trí nó đứng, là nền tảng khó nhất, đòi hỏi người chơi phải linh hoạt trong việc kéo gậy di chuyển: [Picture](#)  
+    1. _Nền tảng bình thường_: nền tảng dễ chơi nhất, người chơi chỉ việc kéo đủ chiều dài gậy để đi qua mà không gặp bất kì khó khăn nào:
+  
+       ![Screenshot 2025-04-20 233236](https://github.com/user-attachments/assets/0fc7941e-c40c-47c9-b97e-4b695424a54d)  
+  
+    3. _Nền tảng biến mất_: nền tảng này sẽ giới hạn thời gian đứng của nhân vật, nếu không di chuyển nhanh nhân vật sẽ bị rơi xuống khi nền tảng biến mất:
+  
+       ![Screenshot 2025-04-20 233122](https://github.com/user-attachments/assets/e2576d0d-b89b-4c78-bd54-c7958c1b3bdb)  
+
+    4. _Nền tảng di chuyển_: nền tảng này dịch chuyển quanh vị trí nó đứng, là nền tảng khó nhất, đòi hỏi người chơi phải linh hoạt trong việc kéo gậy di chuyển:
+
+       ![Screenshot 2025-04-20 235501](https://github.com/user-attachments/assets/0378c38a-1596-45a4-9eab-a2210eb864b8)  
+
   - Ngoài ra, có thể có sự kết hợp ngẫu nhiên giữa nền tảng biến mất và nền tảng di chuyển, tức là vừa giới hạn thời gian đứng vừa dịch chuyển.
   - Khi chơi game:  
-    +) Người chơi có thể quay lại bằng nút _Back_: [Picture](#)  
-    +) Nếu muốn chơi lại màn chơi, chọn nút _Replay_: [Picture](#)  
-    +) Sau khi thắng level chơi hiện tại, người chơi có thể tiếp tục level kế tiếp bằng nút _Continue_: [Picture](#)  
+    +) Người chơi có thể quay lại bằng nút _Back_:
+
+      ![Screenshot 2025-04-20 233457](https://github.com/user-attachments/assets/c7e77adc-1ec0-4501-9542-4f875ac5ddc6)  
+  
+    +) Nếu muốn chơi lại màn chơi, chọn nút _Replay_:
+
+      ![Screenshot 2025-04-20 233549](https://github.com/user-attachments/assets/f4d3d831-b2dc-497a-a0fd-6434ea6d5ca0)  
+  
+    +) Sau khi thắng level chơi hiện tại, người chơi có thể tiếp tục level kế tiếp bằng nút _Continue_:
+
+       ![Screenshot 2025-04-20 233643](https://github.com/user-attachments/assets/bb980f89-f451-4446-aa12-118ba29c9d45)  
+
 ### V. NHỮNG NGUỒN SỬ DỤNG ĐỂ TẠO GAME
   - Background:  
     +) Popup: https://pngtree.com/freepng/popup-wooden-game_6839509.html  
