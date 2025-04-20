@@ -40,7 +40,10 @@
   - Gậy có thuộc tính đặc biệt: Khi bắc cầu qua nền tảng di chuyển sẽ làm cho nền tảng dừng lại, giúp nhân vật dễ di chuyển hơn.  
   - Người chơi có thể tăng số mạng sống cho nhân vật hồi sinh bằng cách kéo gậy chạm đúng trái tim giữa nền tảng, nếu lệch sẽ không được:
 
-      ![Screenshot 2025-04-20 235046](https://github.com/user-attachments/assets/2b54637e-fe0b-40d9-820e-4317646dae57)  
+      ![Screenshot 2025-04-20 235046](https://github.com/user-attachments/assets/2b54637e-fe0b-40d9-820e-4317646dae57)
+    
+      ![Screenshot 2025-04-20 235916](https://github.com/user-attachments/assets/f1567ca4-134e-4187-a012-a489749d2055)
+      - Nếu đặt chính xác sẽ có thêm mạng và được cập nhật số mạng trên màn hình.  
 
   - Nền tảng sẽ gồm 3 loại:  
     1. _Nền tảng bình thường_: nền tảng dễ chơi nhất, người chơi chỉ việc kéo đủ chiều dài gậy để đi qua mà không gặp bất kì khó khăn nào:
