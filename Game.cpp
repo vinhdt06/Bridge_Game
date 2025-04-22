@@ -657,7 +657,7 @@ void problemGame() {
 						newPlatform.platformsMove = rand() % 50 + 20;
 					}
 				}
-				if (rand() % 100 < 20) {
+				if (rand() % 100 < 15) {
 					newPlatform.hasMark = true;
 					int markWidth = 17;
 					int markHeight = 17;
