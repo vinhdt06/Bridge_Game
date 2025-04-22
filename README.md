@@ -33,7 +33,7 @@
     ![Screenshot 2025-04-20 232645](https://github.com/user-attachments/assets/0ad9c4d8-234e-423b-b0aa-88a9bdfef30f)
     - Ở hình ảnh level 1 đã vượt qua sẽ được tô đậm, sau đó level 2 được mở (tô mờ) tiếp theo để chơi, các level khác vẫn trong trạng thái bị khoá.  
   
-  - Trong 1 level chơi, nhiệm vụ của người chơi là kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua:
+  - Trong 1 level chơi, nhiệm vụ của người chơi là click giữ chuột vào màn hình game để kéo dài cây gậy bắc cầu qua các nền tảng, không được kéo quá dài hoặc quá ngắn nhân vật sẽ bị rơi khi đi qua:
 
       ![Screenshot 2025-04-20 233807](https://github.com/user-attachments/assets/549b1d7d-0fe4-48b7-9cfc-54951ca0b759)  
   
