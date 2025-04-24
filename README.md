@@ -14,7 +14,7 @@
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua, mở khoá level mới khi hoàn thành level hiện tại.  
   - Cập nhật lại đồ hoạ, âm thanh mới cho game.
 ### III. CÁCH CÀI ĐẶT GAME
-  - Người chơi click vào file _Bridge.exe_, tiếp theo click vào _Raw_ để file tải về.  
+  - Người chơi click vào file _Bridge.exe_, tiếp theo click vào _Raw_ để tải về file.  
   - Giải nén file, sau đó vào file và chơi game ở phần _TESTGAME2_.  
 
 ### IV. HƯỠNG DẪN CHƠI GAME
