@@ -14,8 +14,8 @@
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua, mở khoá level mới khi hoàn thành level hiện tại.  
   - Cập nhật lại đồ hoạ, âm thanh mới cho game.
 ### III. CÁCH CÀI ĐẶT GAME
-  - Người chơi tải 4 thư viện SDL về và cài đặt SDL trên IDE đã có: [Picture](#)
-  - 
+  - Người chơi click vào file _Bridge.exe_, sau đó click vào Raw để tải về.  
+  - Giải nén file, tiếp theo vào file và chơi thử game ở phần TESTGAME2.  
 
 ### IV. HƯỠNG DẪN CHƠI GAME
   Người chơi phải chơi lần lượt từng level, nếu chưa qua level trước thì không thể mở khoá level sau. Chỉ cần vượt qua hết các level tức là đã dành chiến thắng và Hero cứu được Crush. Cụ thể:
