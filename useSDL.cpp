@@ -14,104 +14,104 @@ void initSDL() {
 
 	SDL_SetHint(SDL_HINT_RENDER_SCALE_QUALITY, "0");
 	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
-	font = TTF_OpenFont("arial.ttf", 34);
+	font = TTF_OpenFont("Graphics/arial.ttf", 34);
 
 	for (int i = 0; i < 5; i++) {
-		std::string filename = "Hero" + std::to_string(i + 1) + ".png";
+		std::string filename = "Graphics/Hero" + std::to_string(i + 1) + ".png";
 		SDL_Surface* surface = IMG_Load(filename.c_str());
 		idleTextures[i] = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
 	}
 	for (int i = 0; i < 6; i++) {
-		std::string filename = "Jump_Hero" + std::to_string(i + 1) + ".png";
+		std::string filename = "Graphics/Jump_Hero" + std::to_string(i + 1) + ".png";
 		SDL_Surface* surface = IMG_Load(filename.c_str());
 		walkTextures[i] = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
 	}
 
-	SDL_Surface* surface = IMG_Load("Background2.png");
+	SDL_Surface* surface = IMG_Load("Graphics/Background2.png");
 	homeBackground = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("Background2.png");
+	surface = IMG_Load("Graphics/Background2.png");
 	levelMenuBackground = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("Background1.png");
+	surface = IMG_Load("Graphics/Background1.png");
 	gameBackground = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("ButtonReplay.png");
+	surface = IMG_Load("Graphics/ButtonReplay.png");
 	replayButton = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("ButtonContinue.png");
+	surface = IMG_Load("Graphics/ButtonContinue.png");
 	continueButton = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("ButtonExit.png");
+	surface = IMG_Load("Graphics/ButtonExit.png");
 	exitButton = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("ButtonPlay.png");
+	surface = IMG_Load("Graphics/ButtonPlay.png");
 	playButton = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
 	for (int i = 0; i < 20; i++) {
-		std::string filename = "Level" + std::to_string(i + 1) + ".png";
+		std::string filename = "Graphics/Level" + std::to_string(i + 1) + ".png";
 		surface = IMG_Load(filename.c_str());
 		levelButton[i] = SDL_CreateTextureFromSurface(renderer, surface);
 		SDL_FreeSurface(surface);
 	}
 
-	surface = IMG_Load("LockLevel.png");
+	surface = IMG_Load("Graphics/LockLevel.png");
 	lockedLevel = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("Popup.png");
+	surface = IMG_Load("Graphics/Popup.png");
 	popup = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("TitleMain.png");
+	surface = IMG_Load("Graphics/TitleMain.png");
 	title = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("TitleLevel.png");
+	surface = IMG_Load("Graphics/TitleLevel.png");
 	SelectLevel = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("Platform.png");
+	surface = IMG_Load("Graphics/Platform.png");
 	platform = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("Lives.png");
+	surface = IMG_Load("Graphics/Lives.png");
 	Lives = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	fallSound = Mix_LoadWAV("Falling.wav");
+	fallSound = Mix_LoadWAV("Audio/Falling.wav");
 	Mix_VolumeChunk(fallSound, MIX_MAX_VOLUME / 2);
-	hitGroundSound = Mix_LoadWAV("fall.wav");
+	hitGroundSound = Mix_LoadWAV("Audio/fall.wav");
 	Mix_VolumeChunk(hitGroundSound, MIX_MAX_VOLUME / 2);
-	winSound = Mix_LoadWAV("win.wav");
-	mainMusic = Mix_LoadMUS("Main.wav");
+	winSound = Mix_LoadWAV("Audio/win.wav");
+	mainMusic = Mix_LoadMUS("Audio/Main.wav");
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 4);
-	playingMusic = Mix_LoadMUS("Playing.wav");
+	playingMusic = Mix_LoadMUS("Audio/Playing.wav");
 	Mix_VolumeMusic(MIX_MAX_VOLUME / 6);
-	clickSound = Mix_LoadWAV("ClickButton.wav");
+	clickSound = Mix_LoadWAV("Audio/ClickButton.wav");
 	Mix_VolumeChunk(clickSound, MIX_MAX_VOLUME / 10);
-	walkSound = Mix_LoadWAV("Running.wav");
+	walkSound = Mix_LoadWAV("Audio/Running.wav");
 	Mix_VolumeChunk(walkSound, MIX_MAX_VOLUME);
 
-	stretchSound = Mix_LoadWAV("StickLength.wav");
-	placeSound = Mix_LoadWAV("StickDown.wav");
+	stretchSound = Mix_LoadWAV("Audio/StickLength.wav");
+	placeSound = Mix_LoadWAV("Audio/StickDown.wav");
 	Mix_VolumeChunk(stretchSound, MIX_MAX_VOLUME / 4);
 	Mix_VolumeChunk(placeSound, MIX_MAX_VOLUME);
 
-	surface = IMG_Load("SoundTurnOn.png");
+	surface = IMG_Load("Graphics/SoundTurnOn.png");
 	soundOnTexture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
-	surface = IMG_Load("SoundTurnOff.png");
+	surface = IMG_Load("Graphics/SoundTurnOff.png");
 	soundOffTexture = SDL_CreateTextureFromSurface(renderer, surface);
 	SDL_FreeSurface(surface);
 
