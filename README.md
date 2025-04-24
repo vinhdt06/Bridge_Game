@@ -8,16 +8,16 @@
   Game dựa trên ý tưởng từ game Monkey Stick: https://youtu.be/Op2xQs5VFmo?si=TQx7v1nbStfXMApl
 ### II. THAY ĐỔI MỚI DỰA TRÊN Ý TƯỞNG CŨ
   - Thêm tính năng level, các nút: _Back_, _Continue_.
-  - Nhân vật có thể có thêm mạng sống hồi sinh bằng trái tim trên nền tảng, hiển thị số mạng sống trên màn hình.   
   - Tăng độ khó cho game bằng cách thêm 2 loại nền tảng mới: _Nền tảng biến mất_; _Nền tảng di chuyển_; có thể có sự kết hợp của cả 2 xuất hiện ở từng level theo xác suất.  
-  - Cập nhật số lượng nền tảng, tỉ lệ xuất hiện 2 loại nền tảng mới tăng lên theo từng level.   
+  - Cập nhật số lượng nền tảng, tỉ lệ xuất hiện 2 loại nền tảng mới tăng lên theo từng level.
+  - Nhân vật có thể có thêm mạng sống hồi sinh bằng trái tim trên nền tảng, hiển thị số mạng sống trên màn hình.   
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua, mở khoá level mới khi hoàn thành level hiện tại.  
   - Cập nhật lại đồ hoạ, âm thanh mới cho game.
 ### III. CÁCH CÀI ĐẶT GAME
-  - Người chơi click vào file _Bridge.exe_. tiếp theo click vào _Raw_ để tải về file.  
-    ![Screenshot 2025-04-24 205238](https://github.com/user-attachments/assets/78ba85f2-aae1-4e38-ac8e-2fc5284a8f16)  
-  
-    Tiếp theo click vào _Raw_ để tải về file.
+  - Người chơi click vào file _Bridge.exe_:  
+    ![Screenshot 2025-04-24 205532](https://github.com/user-attachments/assets/64d45c7b-237b-40e3-a8f9-3ffa360cc978)
+    
+  - Tiếp theo click vào _Raw_ để tải về file:  
   
     ![Screenshot 2025-04-24 205316](https://github.com/user-attachments/assets/885c7055-e768-483a-b247-097f9031842f)  
 
@@ -25,14 +25,13 @@
 
 ### IV. HƯỠNG DẪN CHƠI GAME
   Người chơi phải chơi lần lượt từng level, nếu chưa qua level trước thì không thể mở khoá level sau. Chỉ cần vượt qua hết các level tức là đã dành chiến thắng và Hero cứu được Crush. Cụ thể:
-  - Sau khi vào game và kích vào _Play Now_, sẽ dẫn chúng ta đến phần chọn level chơi:  
+  - Sau khi vào game và kích vào _Play Now_, sẽ dẫn chúng ta đến phần chọn level chơi:
       
     ![Screenshot 2025-04-20 231621](https://github.com/user-attachments/assets/4babb63a-acc4-4c23-919e-19bfc66f33a3)  
-    - Main Menu Game với nút _Play Now_
-   
-         
+    - Main Menu Game với nút _Play Now_.
+        
     ![Screenshot 2025-04-20 232152](https://github.com/user-attachments/assets/3ef97e40-cb62-4cf2-a0fa-64f07e862bc8)  
-    - Phần lựa chọn level  
+    - Phần lựa chọn level.  
     
   - Ở phần lựa chọn level, người chơi bắt đầu từ level đầu tiên, sau khi thắng 1 level sẽ được lưu lại kết quả:
 
