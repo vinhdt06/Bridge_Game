@@ -12,7 +12,7 @@
   - Cập nhật số lượng nền tảng, tỉ lệ xuất hiện 2 loại nền tảng mới tăng lên theo từng level.
   - Nhân vật có thể có thêm mạng sống hồi sinh bằng trái tim trên nền tảng, hiển thị số mạng sống trên màn hình.   
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua, mở khoá level mới khi hoàn thành level hiện tại.  
-  - Cập nhật lại đồ hoạ, âm thanh mới cho game.
+  - Cập nhật lại đồ hoạ, âm thanh mới cho game, thêm tính nổi cho nút.
 ### III. CÁCH CÀI ĐẶT GAME
   - Người chơi click vào file _Bridge.exe_:  
     ![Screenshot 2025-04-24 205532](https://github.com/user-attachments/assets/64d45c7b-237b-40e3-a8f9-3ffa360cc978)
