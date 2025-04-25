@@ -15,7 +15,7 @@
   - Cập nhật lại đồ hoạ, âm thanh mới cho game, thêm tính nổi cho nút.
 ### III. CÁCH CÀI ĐẶT GAME
   - Người chơi click vào file _Bridge.exe_:  
-    ![Screenshot 2025-04-24 205532](https://github.com/user-attachments/assets/64d45c7b-237b-40e3-a8f9-3ffa360cc978)
+    ![Screenshot 2025-04-25 235030](https://github.com/user-attachments/assets/3c6f3ad4-e1b7-45dd-922f-786600a559cf)  
     
   - Tiếp theo click vào _Raw_ để tải về file:  
   
@@ -27,7 +27,8 @@
   Người chơi phải chơi lần lượt từng level, nếu chưa qua level trước thì không thể mở khoá level sau. Chỉ cần vượt qua hết các level tức là đã dành chiến thắng và Hero cứu được Crush. Cụ thể:
   - Sau khi vào game và kích vào _Play Now_, sẽ dẫn chúng ta đến phần chọn level chơi:
       
-    ![Screenshot 2025-04-20 231621](https://github.com/user-attachments/assets/4babb63a-acc4-4c23-919e-19bfc66f33a3)  
+    ![Screenshot 2025-04-25 235030](https://github.com/user-attachments/assets/9204908c-c78b-4c7b-9328-519b2b5b4795)
+  
     - Main Menu Game với nút _Play Now_.
         
     ![Screenshot 2025-04-20 232152](https://github.com/user-attachments/assets/3ef97e40-cb62-4cf2-a0fa-64f07e862bc8)  
