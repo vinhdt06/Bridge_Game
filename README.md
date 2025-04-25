@@ -14,8 +14,9 @@
   - Thay đổi vị trí đặt gậy, vị trí đứng của nhân vật, lưu lại các level đã vượt qua, mở khoá level mới khi hoàn thành level hiện tại.  
   - Cập nhật lại đồ hoạ, âm thanh mới cho game, thêm tính nổi cho nút.
 ### III. CÁCH CÀI ĐẶT GAME
-  - Người chơi click vào file _Bridge.exe_:  
-    ![Screenshot 2025-04-25 235030](https://github.com/user-attachments/assets/3c6f3ad4-e1b7-45dd-922f-786600a559cf)  
+  - Người chơi click vào file _Bridge.exe_:
+  
+    ![Screenshot 2025-04-25 235218](https://github.com/user-attachments/assets/fdedd5a7-1ac8-40ca-9504-3f52b33440ee)  
     
   - Tiếp theo click vào _Raw_ để tải về file:  
   
