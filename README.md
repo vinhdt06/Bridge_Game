@@ -1,5 +1,5 @@
 # **BRIDGE**
-- [Test Game](#)
+- Review & Test Game: https://drive.google.com/file/d/1aVck9cOmNtZ9QGeJMoj8VavnD4nHE5QB/view?usp=drive_link  
 ### I. GIỚI THIỆU GAME
   BRIDGE là 1 tựa game nói về nhân vật Hero giải cứu Crush của mình khỏi kẻ xấu. Tuy nhiên, trên con đường giải cứu có rất nhiều cạm bẫy, thử thách. Hero đã dũng cảm vượt qua gần hết, nhưng còn chặng cuối cùng
   rất khó khăn đó là leo qua các nền tảng khá cao mà ở dưới là các mối nguy hiểm đang rình rập, đe doạ. 
@@ -43,13 +43,18 @@
       ![Screenshot 2025-04-20 233807](https://github.com/user-attachments/assets/549b1d7d-0fe4-48b7-9cfc-54951ca0b759)  
   
   - Gậy có thuộc tính đặc biệt: Khi bắc cầu qua nền tảng di chuyển sẽ làm cho nền tảng dừng lại, giúp nhân vật dễ di chuyển hơn.  
-  - Người chơi có thể tăng số mạng sống cho nhân vật hồi sinh bằng cách kéo gậy chạm đúng trái tim giữa nền tảng, nếu lệch sẽ không được:
+  - Người chơi có thể tăng số mạng sống cho nhân vật hồi sinh bằng cách kéo gậy chạm đúng trái tim giữa nền tảng, nếu lệch thì sẽ không có mạng hay nếu chạm đúng trái tim nhưng quá chậm so với bị rơi thì cũng không được chấp nhận:  
 
       ![Screenshot 2025-04-20 235046](https://github.com/user-attachments/assets/2b54637e-fe0b-40d9-820e-4317646dae57)
     
       ![Screenshot 2025-04-20 235916](https://github.com/user-attachments/assets/f1567ca4-134e-4187-a012-a489749d2055)
       - Nếu đặt chính xác sẽ có thêm mạng và được cập nhật số mạng trên màn hình.  
 
+  - Game đã được fix lỗi sẽ không thể kéo gậy dài để vượt qua đồng thời nhiều nền tảng, nhân vật vẫn sẽ bị rơi dù có đặt đúng:
+      
+    ![Screenshot 2025-04-25 233333](https://github.com/user-attachments/assets/1d9e6b1b-4c69-4fd6-a624-acb5d5a109e8)  
+
+    
   - Nền tảng sẽ gồm 3 loại:  
     1. _Nền tảng bình thường_: nền tảng dễ chơi nhất, người chơi chỉ việc kéo đủ chiều dài gậy để đi qua mà không gặp bất kì khó khăn nào:
   
