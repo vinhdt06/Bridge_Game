@@ -80,7 +80,13 @@
   
     +) Sau khi thắng level chơi hiện tại, người chơi có thể tiếp tục level kế tiếp bằng nút _Continue_:
 
-       ![Screenshot 2025-04-20 233643](https://github.com/user-attachments/assets/bb980f89-f451-4446-aa12-118ba29c9d45)  
+       ![Screenshot 2025-04-20 233643](https://github.com/user-attachments/assets/bb980f89-f451-4446-aa12-118ba29c9d45)
+  
+    +) Nút âm thanh cho game:
+
+      - Mở: ![Screenshot 2025-04-25 234445](https://github.com/user-attachments/assets/0ddc9f82-387b-4ce4-aa70-160c302748fd)
+
+      - Tắt: ![Screenshot 2025-04-25 234452](https://github.com/user-attachments/assets/4f025446-bce1-4cf8-b8f9-d446f0c8760e)  
 
 ### V. NHỮNG NGUỒN SỬ DỤNG ĐỂ TẠO GAME
   - Background:  
