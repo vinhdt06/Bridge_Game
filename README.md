@@ -110,7 +110,6 @@
     +) Win: https://tiengdong.com/am-thanh-gianh-chien-thang-trong-cac-tro-choi-dien-tu  
     +) StickLength: https://pixabay.com/vi/sound-effects/search/r%c6%a1i%20xu%e1%bb%91ng/?pagi=3  
     +) StickDown: https://pixabay.com/vi/sound-effects/search/90s/  
-  - 1 số công cụ AI hỗ trợ khác như: ChatGPT, DeepSeek.
   - Chuyển âm thanh sang dạng wav.
   - Xoá phông nền hình ảnh.
   - Kết hợp sử dụng cả 4 thư viện SDL cho game: SDL, SDL_image, SDL_mixer, SDL_ttf.
