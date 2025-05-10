@@ -1,5 +1,5 @@
 # **BRIDGE**
-- Review & Test Game: [https://drive.google.com/file/d/17oI4MIh4Abqkj5eJMBTZU9T55L1Zt47M/view?usp=drive_link](https://drive.google.com/file/d/17oI4MIh4Abqkj5eJMBTZU9T55L1Zt47M/view?usp=drive_link)       
+- Review & Test Game: https://drive.google.com/file/d/17oI4MIh4Abqkj5eJMBTZU9T55L1Zt47M/view?usp=drive_link   
 ### I. GIỚI THIỆU GAME
   BRIDGE là 1 tựa game nói về nhân vật Hero giải cứu Crush của mình khỏi kẻ xấu. Tuy nhiên, trên con đường giải cứu có rất nhiều cạm bẫy, thử thách. Hero đã dũng cảm vượt qua gần hết, nhưng còn chặng cuối cùng
   rất khó khăn đó là leo qua các nền tảng khá cao mà ở dưới là các mối nguy hiểm đang rình rập, đe doạ. 
